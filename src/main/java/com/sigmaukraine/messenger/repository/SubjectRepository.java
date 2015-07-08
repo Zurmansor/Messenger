@@ -36,7 +36,7 @@ public class SubjectRepository {
     public Subject getSubjectByName(String name) {
         List<Subject> subjects = this.sessionFactory.getCurrentSession()
                 .createQuery("FROM Subject WHERE name=?")
-                .setParameter(0, name)
+                .setParameter(0, name)//.uniqueResult()
                 .list();
 
         return subjects.size() > 0 ? subjects.get(0) : null;

@@ -3,37 +3,34 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <t:template>
-  <form:form method="post" action="add" commandName="subject">
+  <div class="page-container">
 
-    <table>
+  <form:form class="form-horizontal" method="post" action="add" commandName="subject">
 
-      <tr>
-        <td>
-          <form:label path="name">Name</form:label>
-        </td>
-        <td>
-          <form:input path="name" />
-        </td>
-        <td>
-          <form:errors cssClass="error" path="name"></form:errors>
-        </td>
-      <tr>
+    <H2 class="text-center">Add subject</H2>
 
-      <tr>
-        <td>
-          <form:label path="description">Description</form:label>
-        </td>
-        <td>
-          <form:textarea path="description" />
-        </td>
-        <td>
-          <form:errors cssClass="error" path="description"></form:errors>
-        </td>
-      </tr>
+    <div class="form-group">
+      <label for="name" class="col-sm-2 control-label">Name</label>
+      <div class="col-sm-10">
+        <form:input path="name" type="text" class="form-control" id="name" placeholder="Name"/>
+      </div>
+    </div>
 
-        <td><input type="submit" value="Add subject" /></td>
-      </tr>
-    </table>
+    <form:errors class="text-danger bg-danger" path="name"></form:errors>
+
+    <div class="form-group">
+      <label for="description" class="col-sm-2 control-label">Description</label>
+      <div class="col-sm-10">
+        <form:input path="description" type="text" class="form-control" id="description" placeholder="Description"/>
+      </div>
+    </div>
+
+    <form:errors class="text-danger bg-danger" path="description"></form:errors>
+
+    <input type="submit" class="btn btn-success center-block"  value="Add subject" />
+
+</div>
+
   </form:form>
 </t:template>
 

@@ -12,6 +12,8 @@
     <!-- Optional theme -->
     <link href="<c:url value="/resources/bootstrap/css/bootstrap-theme.min.css" />" rel="stylesheet">
 
+    <link href="css/font-awesome.css" rel="stylesheet">
+
     <link href="<c:url value="/resources/css/main.css" />" rel="stylesheet">
 </head>
 <body>

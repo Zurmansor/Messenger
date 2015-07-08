@@ -70,10 +70,7 @@ public class SubjectController {
     @RequestMapping(value = "/subjects/remove/{id}", method = RequestMethod.GET)
     @PreAuthorize("hasRole('admin')")
     public String removeSubject(@PathVariable Integer id){
-        System.out.println("aa");
         this.subjectRepository.removeSubject(id);
-        System.out.println("bb");
-
         return "redirect:/subjects";
     }
 }

@@ -5,21 +5,48 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <t:template>
-  <H1>Subjects</H1>
-  <ul>
 
-    <c:forEach items="${subjects}" var="subject">
-      <%--<li>--%><h3 class="bg-success">${subject.name}</h3>
+  <div class="container">
+    <ul id="nav">
+      <li style="float: left;"><a href="#">Home</a></li>
+      <li><a href="#">Menu 1</a>
+      <li><a href="#">Menu 3</a></li>
+      <li><a href="#">Menu 4</a></li>
+      <li><a href="#">Menu 5</a></li>
+
+    </ul>
+  </div>
+  <div class="list-subject-container">
+      <H1>Subjects</H1>
+
+      <sec:authorize access="hasRole('admin')">
+        <p><a href="/subjects/add" style="float:right;" class="btn btn-success center-block">
+          Add a subject
+        </a></p>
+      </sec:authorize>
+  </div>
+
+  <div class="list-config">
+
+   <c:forEach items="${subjects}" var="subject">
+     <div class="list-config-for">
+    <div class="list-config-name">
+
+      <h3 class="bg-success">${subject.name}</h3>
+    </div>
+    <div class="list-config-remove">
+
+
         <sec:authorize access="hasRole('admin')">
-          <a href="/subjects/remove/${subject.id}">Delete</a>
+          <a href="/subjects/remove/${subject.id}" class="btn btn-danger">Delete</a>
         </sec:authorize>
-     <%-- </li>--%>
+    </div>
+     </div>
     </c:forEach>
 
-  </ul>
-  <sec:authorize access="hasRole('admin')">
-      <p><a href="/subjects/add">Add a subject</a></p>
-  </sec:authorize>
+  </div>
+
+
 </t:template>
 
 <%--<p class="bg-success">--%>

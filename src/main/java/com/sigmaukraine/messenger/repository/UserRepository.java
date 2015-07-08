@@ -1,5 +1,6 @@
 package com.sigmaukraine.messenger.repository;
 
+import com.sigmaukraine.messenger.domain.Subject;
 import com.sigmaukraine.messenger.domain.User;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,5 +37,18 @@ public class UserRepository {
                 .setParameter(1, password)
                 .list();
         return users.size() > 0 ? users.get(0) : null;
+    }
+
+    public List<User> listAll() {
+        return this.sessionFactory.getCurrentSession().createQuery("from User")
+                .list();
+    }
+
+    public void removeUser(int id) {
+        User contact = (User) this.sessionFactory.getCurrentSession().load(User.class, id);
+
+        if (null != contact) {
+            this.sessionFactory.getCurrentSession().delete(contact);
+        }
     }
 }
