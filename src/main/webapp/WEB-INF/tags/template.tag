@@ -14,11 +14,23 @@
 
     <link href="css/font-awesome.css" rel="stylesheet">
 
-    <link href="<c:url value="/resources/css/main.css" />" rel="stylesheet">
+    <%--<link href="<c:url value="/resources/css/main.css" />" rel="stylesheet">--%>
 </head>
 <body>
-<div class="content">
 
+<nav class="navbar navbar-default navbar-static-top">
+    <div class="container">
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#">Link</a></li>
+            <li><a href="#">Link</a></li>
+            <li></li>
+        </ul>
+        <p class="navbar-text navbar-right"><a href="#">Sign In demo</a></p>
+    </div>
+</nav>
+
+<div class="content">
     <div class="login-link-container">
         <sec:authorize access="isAnonymous()">
             <p>
