@@ -19,28 +19,26 @@
 <body>
 
 <nav class="navbar navbar-default navbar-static-top">
-    <div class="container">
+    <p class="container">
         <ul class="nav navbar-nav">
             <li class="active"><a href="#">Home</a></li>
             <li><a href="#">Link</a></li>
             <li><a href="#">Link</a></li>
             <li></li>
         </ul>
-        <p class="navbar-text navbar-right"><a href="#">Sign In demo</a></p>
+        <p class="navbar-text navbar-right">
+            <sec:authorize access="isAnonymous()">
+                <a href="/spring_security_login">Sign In</a>
+            </sec:authorize>
+            <sec:authorize access="isAuthenticated()">
+                <a href="/j_spring_security_logout">Sign Out</a>
+            </sec:authorize>
+        </p>
     </div>
 </nav>
 
 <div class="content">
-    <div class="login-link-container">
-        <sec:authorize access="isAnonymous()">
-            <p>
-                <a href="/spring_security_login">Sign In</a>
-            </p>
-        </sec:authorize>
-        <sec:authorize access="isAuthenticated()">
-            <a href="/j_spring_security_logout">Sign Out</a>
-        </sec:authorize>
-    </div>
+
     <jsp:doBody/>
 </div>
 </body>

@@ -4,5 +4,6 @@
         <mapping class="com.sigmaukraine.messenger.domain.User"/>
         <mapping class="com.sigmaukraine.messenger.domain.Role"/>
         <mapping class="com.sigmaukraine.messenger.domain.Subject"/>
+        <mapping class="com.sigmaukraine.messenger.domain.Message"/>
     </session-factory>
 </hibernate-configuration>
