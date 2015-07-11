@@ -38,15 +38,15 @@ public class ChatController {
         this.chatValidator = chatValidator;
     }
 
-    @RequestMapping(value = "/chats", method = RequestMethod.GET)
+    @RequestMapping(value = "subjects/{id}/chats", method = RequestMethod.GET)
     @PreAuthorize("isAuthenticated()")
-    public String list(Model model) {
-        List<Chat> chats= this.chatRepository.listAll();
+    public String list(Model model, @PathVariable Integer id) {
+        List<Chat> chats= this.chatRepository.getListChatsBySubjectId(id);
         model.addAttribute("chats", chats);
         return "chats/list";
     }
 
-    @RequestMapping(value = "/chats/add", method = RequestMethod.GET)
+    @RequestMapping(value = "/subjects/{id}/chats/add", method = RequestMethod.GET)
     @PreAuthorize("isAuthenticated()")
     public String addChat(Model model) {
         model.addAttribute("chat", new Chat());
@@ -54,24 +54,21 @@ public class ChatController {
         return "chats/add";
     }
 
-    @RequestMapping(value = "/chats/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/subjects/{id}/chats/add", method = RequestMethod.POST)
     @PreAuthorize("isAuthenticated()")
-    public String addChat(@ModelAttribute("chat") Chat chat, BindingResult bindingResult) {
+    public String addChat(@ModelAttribute("chat") Chat chat, BindingResult bindingResult, @PathVariable Integer id) {
         this.chatValidator.validate(chat, bindingResult);
 
         if (bindingResult.hasErrors()) {
             return "chats/add";
         }
 
-
         User userDetails = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         com.sigmaukraine.messenger.domain.User user = userRepository.getUserByLogin(userDetails.getUsername());
         chat.setCreatedBy(user.getId());
-//        FIXME: themId
-        chat.setThemId(1);
-
+        chat.setThemId(id);
         this.chatRepository.addChat(chat);
-        return "redirect:/chats";
+        return "redirect:/subjects/"+ id +"/chats";
     }
 
 /*    @RequestMapping(value = "/chats/remove/{id}", method = RequestMethod.GET)

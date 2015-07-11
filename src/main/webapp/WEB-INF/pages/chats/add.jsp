@@ -8,7 +8,6 @@
       <form:form class="form-horizontal" method="post" action="add" commandName="chat">
 
 
-
         <div class="form-group">
           <label for="name" class="col-sm-2 control-label">Name</label>
           <div class="col-sm-10">
@@ -18,8 +17,16 @@
 
         <form:errors class="text-danger bg-danger" path="name"></form:errors>
 
-        <input type="submit" class="btn btn-success center-block"  value="Add chat" />
+        <div class="form-group">
+          <label for="description" class="col-sm-2 control-label">Description</label>
+          <div class="col-sm-10">
+            <form:input path="description" type="text" class="form-control" id="description" placeholder="Description"/>
+          </div>
+        </div>
 
+        <form:errors class="text-danger bg-danger" path="description"></form:errors>
+
+        <input type="submit" class="btn btn-success center-block"  value="Add chat" />
 
       </form:form>
   </div>

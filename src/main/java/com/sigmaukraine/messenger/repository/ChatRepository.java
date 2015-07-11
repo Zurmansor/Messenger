@@ -32,6 +32,15 @@ public class ChatRepository {
         this.sessionFactory.getCurrentSession().save(chat);
     }
 
+    public List<Chat> getListChatsBySubjectId (int id) {
+        return this.sessionFactory.getCurrentSession()
+                .createQuery("FROM Chat WHERE themId=?")
+                .setParameter(0, id)
+                .list();
+    }
+
+
+
 /*    public Subject getSubjectByName(String name) {
         List<Subject> subjects = this.sessionFactory.getCurrentSession()
                 .createQuery("FROM Subject WHERE name=?")

@@ -9,7 +9,7 @@
       <H1>Chats</H1>
 
       <sec:authorize access="hasRole('admin')">
-        <p><a href="/chats/add" style="float:right;" class="btn btn-success center-block">
+        <p><a href="chats/add" style="float:right;" class="btn btn-success center-block">
           Add a Chat
         </a></p>
       </sec:authorize>
