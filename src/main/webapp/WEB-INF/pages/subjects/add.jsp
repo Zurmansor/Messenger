@@ -30,7 +30,6 @@
     <input type="submit" class="btn btn-success center-block"  value="Add subject" />
 
 </div>
-
   </form:form>
 </t:template>
 

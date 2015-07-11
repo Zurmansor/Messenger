@@ -5,6 +5,8 @@ import com.sigmaukraine.messenger.repository.SubjectRepository;
 import com.sigmaukraine.messenger.validation.SubjectValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -62,6 +64,8 @@ public class SubjectController {
         }
 
 //        FIXME: created_by
+/*        UserDetails userDetails = SecurityContextHolder.getContext().getAuthentication().getDetails();
+        userDetails.getUsername();*/
         subject.setCreatedBy(2);
         this.subjectRepository.addSubject(subject);
         return "redirect:/subjects";

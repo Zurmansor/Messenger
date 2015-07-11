@@ -33,9 +33,6 @@
      </div>
     </c:forEach>
 
-  </div>
-
-
 </t:template>
 
 <%--<p class="bg-success">--%>
