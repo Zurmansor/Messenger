@@ -5,10 +5,6 @@
 
 <t:template>
 
-  <div class="page-header">
-    <h1>Helix Chat</h1>
-  </div>
-
   <sec:authorize access="isAnonymous()">
       <p><a class="btn btn-primary" href="registration">Registration</a></p>
   </sec:authorize>
