@@ -2,9 +2,12 @@ package com.sigmaukraine.messenger.controller;
 
 import com.sigmaukraine.messenger.domain.Message;
 import com.sigmaukraine.messenger.repository.MessageRepository;
+import com.sigmaukraine.messenger.repository.UserRepository;
 import com.sigmaukraine.messenger.validation.MessageValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,14 +21,16 @@ import java.util.List;
 public class MessageController {
 
     private MessageRepository messageRepository;
+    private UserRepository userRepository;
     private MessageValidator messageValidator;
 
     public MessageController() {
     }
 
     @Autowired
-    public MessageController(MessageRepository messageRepository, MessageValidator messageValidator) {
+    public MessageController(MessageRepository messageRepository, UserRepository userRepository, MessageValidator messageValidator) {
         this.messageRepository = messageRepository;
+        this.userRepository = userRepository;
         this.messageValidator = messageValidator;
     }
 
@@ -55,14 +60,17 @@ public class MessageController {
         this.messageValidator.validate(message, bindingResult);
 
         if (bindingResult.hasErrors()) {
-            //new /add
             return "messages/list";
         }
 
-//        FIXME: created_by
+//        FIXME: ChatId
         message.setChatId(1);
-        message.setUserId(1);
+
+        User userDetails = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        com.sigmaukraine.messenger.domain.User user = userRepository.getUserByLogin(userDetails.getUsername());
+        message.setUserId(user.getId());
         this.messageRepository.addMessage(message);
+
         return "redirect:/messages";
     }
 

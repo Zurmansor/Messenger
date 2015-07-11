@@ -30,14 +30,14 @@ public class UserRepository {
 
     }
 
-    public User getUserByLoginAndPassword(String login, String password) {
+/*    public User getUserByLoginAndPassword(String login, String password) {
         List <User> users = this.sessionFactory.getCurrentSession()
                 .createQuery("FROM User WHERE login=? AND password=?")
                 .setParameter(0, login)
                 .setParameter(1, password)
                 .list();
         return users.size() > 0 ? users.get(0) : null;
-    }
+    }*/
 
     public List<User> listAll() {
         return this.sessionFactory.getCurrentSession().createQuery("from User")

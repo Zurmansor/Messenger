@@ -4,10 +4,13 @@ import com.sigmaukraine.messenger.domain.Chat;
 import com.sigmaukraine.messenger.domain.Message;
 import com.sigmaukraine.messenger.repository.ChatRepository;
 import com.sigmaukraine.messenger.repository.MessageRepository;
+import com.sigmaukraine.messenger.repository.UserRepository;
 import com.sigmaukraine.messenger.validation.ChatValidator;
 import com.sigmaukraine.messenger.validation.MessageValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,14 +25,16 @@ import java.util.List;
 public class ChatController {
 
     private ChatRepository chatRepository;
+    private UserRepository userRepository;
     private ChatValidator chatValidator;
 
     public ChatController() {
     }
 
     @Autowired
-    public ChatController(ChatRepository chatRepository, ChatValidator chatValidator) {
+    public ChatController(ChatRepository chatRepository, UserRepository userRepository, ChatValidator chatValidator) {
         this.chatRepository = chatRepository;
+        this.userRepository = userRepository;
         this.chatValidator = chatValidator;
     }
 
@@ -58,9 +63,12 @@ public class ChatController {
             return "chats/add";
         }
 
-//        FIXME: created_by
+
+        User userDetails = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        com.sigmaukraine.messenger.domain.User user = userRepository.getUserByLogin(userDetails.getUsername());
+        chat.setCreatedBy(user.getId());
+//        FIXME: themId
         chat.setThemId(1);
-        chat.setCreatedBy(1);
 
         this.chatRepository.addChat(chat);
         return "redirect:/chats";
