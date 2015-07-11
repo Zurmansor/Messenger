@@ -1,5 +1,6 @@
 package com.sigmaukraine.messenger.repository;
 
+import com.sigmaukraine.messenger.domain.Chat;
 import com.sigmaukraine.messenger.domain.Message;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,13 @@ public class MessageRepository {
         this.sessionFactory.getCurrentSession().save(message);
     }
 
+
+    public List<Message> getListMessagesByChatId (int id) {
+        return this.sessionFactory.getCurrentSession()
+                .createQuery("FROM Message WHERE chatId=?")
+                .setParameter(0, id)
+                .list();
+    }
 /*    public Subject getSubjectByName(String name) {
         List<Subject> subjects = this.sessionFactory.getCurrentSession()
                 .createQuery("FROM Subject WHERE name=?")

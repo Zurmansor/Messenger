@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -34,44 +35,34 @@ public class MessageController {
         this.messageValidator = messageValidator;
     }
 
-    @RequestMapping(value = "/messages", method = RequestMethod.GET)
+    @RequestMapping(value = "subjects/{subjectId}/chats/{chatId}/messages", method = RequestMethod.GET)
     @PreAuthorize("isAuthenticated()")
-    public String list(Model model) {
-        List<Message> messages = this.messageRepository.listAll();
+    public String list(Model model, @PathVariable Integer subjectId, @PathVariable Integer chatId) {
+        List<Message> messages = this.messageRepository.getListMessagesByChatId(chatId);
         model.addAttribute("messages", messages);
 
         model.addAttribute("message", new Message());
         return "messages/list";
     }
 
-/*
-    @RequestMapping(value = "/messages", method = RequestMethod.GET)
-    @PreAuthorize("isAuthenticated()")
-    public String addMessage(Model model) {
-        model.addAttribute("message", new Message());
-//new
-        return "messages/list";
-    }
-*/
 
-    @RequestMapping(value = "/messages/add", method = RequestMethod.POST)
+    @RequestMapping(value = "subjects/{subjectId}/chats/{chatId}/messages/add", method = RequestMethod.POST)
     @PreAuthorize("isAuthenticated()")
-    public String addMessage(@ModelAttribute("message") Message message, BindingResult bindingResult) {
+    public String addMessage(@ModelAttribute("message") Message message, BindingResult bindingResult, @PathVariable Integer subjectId, @PathVariable Integer chatId) {
         this.messageValidator.validate(message, bindingResult);
 
         if (bindingResult.hasErrors()) {
             return "messages/list";
         }
 
-//        FIXME: ChatId
-        message.setChatId(1);
+        message.setChatId(chatId);
 
         User userDetails = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         com.sigmaukraine.messenger.domain.User user = userRepository.getUserByLogin(userDetails.getUsername());
         message.setUserId(user.getId());
         this.messageRepository.addMessage(message);
 
-        return "redirect:/messages";
+        return "redirect:/subjects/"+subjectId +"/chats/"+ chatId +"/messages";
     }
 
 /*    @RequestMapping(value = "/messages/remove/{id}", method = RequestMethod.GET)
