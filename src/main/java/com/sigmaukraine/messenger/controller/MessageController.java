@@ -34,16 +34,20 @@ public class MessageController {
     public String list(Model model) {
         List<Message> messages = this.messageRepository.listAll();
         model.addAttribute("messages", messages);
+
+        model.addAttribute("message", new Message());
         return "messages/list";
     }
 
-    @RequestMapping(value = "/messages/add", method = RequestMethod.GET)
+/*
+    @RequestMapping(value = "/messages", method = RequestMethod.GET)
     @PreAuthorize("isAuthenticated()")
     public String addMessage(Model model) {
         model.addAttribute("message", new Message());
-
-        return "messages/add";
+//new
+        return "messages/list";
     }
+*/
 
     @RequestMapping(value = "/messages/add", method = RequestMethod.POST)
     @PreAuthorize("isAuthenticated()")
@@ -51,7 +55,8 @@ public class MessageController {
         this.messageValidator.validate(message, bindingResult);
 
         if (bindingResult.hasErrors()) {
-            return "messages/add";
+            //new /add
+            return "messages/list";
         }
 
 //        FIXME: created_by
