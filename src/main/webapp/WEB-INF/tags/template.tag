@@ -12,26 +12,23 @@
     <!-- Optional theme -->
     <link href="<c:url value="/resources/bootstrap/css/bootstrap-theme.min.css" />" rel="stylesheet">
 
-    <link href="css/font-awesome.css" rel="stylesheet">
-
-    <%--<link href="<c:url value="/resources/css/main.css" />" rel="stylesheet">--%>
+    <script src="resources/js/jquery-1.11.3.min.js"></script>
+    <script src="/resources/bootstrap/js/transition.js"></script>
+    <script src="/resources/bootstrap/js/collapse.js"></script>
+    <script src="/resources/bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
 
 <nav class="navbar navbar-default navbar-static-top">
     <div class="container-fluid">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-8" aria-expanded="false">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
             <a class="navbar-brand" href="#">Helix Chat</a>
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-8">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Home</a></li>
+                <sec:authorize access="isAuthenticated()">
+                    <li class="active"><a href="/subjects">Subjects list</a></li>
+                </sec:authorize>
                 <li><a href="#">Link</a></li>
                 <li><a href="#">Link</a></li>
             </ul>

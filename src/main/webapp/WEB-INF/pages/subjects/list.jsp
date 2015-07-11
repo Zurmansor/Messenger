@@ -10,31 +10,35 @@
       <H1>Subjects</H1>
 
       <sec:authorize access="hasRole('admin')">
-        <p><a href="/subjects/add" style="float:right;" class="btn btn-success center-block">
-          Add a subject
-        </a></p>
+          <p>
+              <a href="/subjects/add" class="btn btn-success">
+                  Add a subject
+              </a>
+          </p>
       </sec:authorize>
   </div>
 
-  <div class="list-config">
-
-   <c:forEach items="${subjects}" var="subject">
-     <div class="list-config-for">
-    <div class="list-config-name">
-
-      <h3 class="bg-success">${subject.name}</h3>
+    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+        <c:forEach items="${subjects}" var="subject">
+            <div class="panel panel-default">
+                <div class="panel-heading clearfix" role="tab" id="subject-${subject.id}">
+                    <h4 class="panel-title">
+                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#description-${subject.id}" aria-expanded="false" aria-controls="description-${subject.id}">
+                            <a href="/subjects/${subject.id}/chats"> ${subject.name} </a>
+                            <sec:authorize access="hasRole('admin')">
+                                <a href="/subjects/remove/${subject.id}" class="btn btn-danger btn-xs pull-right">Delete</a>
+                            </sec:authorize>
+                        </a>
+                    </h4>
+                </div>
+                <div id="description-${subject.id}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="subject-${subject.id}">
+                    <div class="panel-body">
+                        ${subject.description}
+                    </div>
+                </div>
+            </div>
+        </c:forEach>
     </div>
-    <div class="list-config-remove">
-
-        <sec:authorize access="hasRole('admin')">
-          <a href="/subjects/remove/${subject.id}" class="btn btn-danger">Delete</a>
-        </sec:authorize>
-    </div>
-     </div>
-    </c:forEach>
-
-  </div>
-
 </t:template>
 
-<%--<p class="bg-success">--%>
+

@@ -43,6 +43,7 @@ public class ChatController {
     public String list(Model model, @PathVariable Integer id) {
         List<Chat> chats= this.chatRepository.getListChatsBySubjectId(id);
         model.addAttribute("chats", chats);
+        model.addAttribute("subjectId", id);
         return "chats/list";
     }
 
