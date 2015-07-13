@@ -64,7 +64,7 @@ public class AuthController {
     @RequestMapping(value = "/sign_in", method = RequestMethod.GET)
     public String signIn(Model model) {
         model.addAttribute("user", new User());
-        return "sign_in";
+        return "login";
     }
 
 //    @RequestMapping(value = "/sign_in", method = RequestMethod.POST)
