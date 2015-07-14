@@ -10,11 +10,22 @@
        <security:global-method-security jsr250-annotations="enabled" pre-post-annotations="enabled"
                                         secured-annotations="enabled"/>
 
+
        <security:http use-expressions="true">
               <security:intercept-url pattern="/**" access="permitAll"/>
               <!--<security:form-login/>-->
-              <security:form-login login-page="/pages/login.jsp" authentication-failure-url="/login?error=true"
-                          login-processing-url="/j_security_check"/>
+              <!--<security:form-login login-page="/pages/login.jsp" authentication-failure-url="/login?error=true"-->
+                          <!--login-processing-url="/j_security_check"/>-->
+
+              <security:form-login
+                      login-page="/login"
+                      default-target-url="/"
+                      authentication-failure-url="/login?error"
+                      username-parameter="username"
+                      password-parameter="password" />
+              <security:logout logout-success-url="/login?logout" />
+              <!-- enable csrf protection -->
+              <security:csrf/>
               <security:logout logout-success-url="/" delete-cookies="JSESSIONID"/>
               <security:remember-me/>
               <security:session-management invalid-session-url="/">

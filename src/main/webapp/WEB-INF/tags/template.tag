@@ -34,7 +34,7 @@
             </ul>
             <p class="navbar-text navbar-right">
                 <sec:authorize access="isAnonymous()">
-                    <a href="/spring_security_login">Sign In</a>
+                    <a href="/login">Sign In</a>
                 </sec:authorize>
                 <sec:authorize access="isAuthenticated()">
                     <a href="/j_spring_security_logout">Sign Out</a>
@@ -45,7 +45,6 @@
 </nav>
 
 <div class="content">
-
     <jsp:doBody/>
 </div>
 </body>
