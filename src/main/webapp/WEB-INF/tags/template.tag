@@ -20,31 +20,53 @@
 <body>
 
 <nav class="navbar navbar-default navbar-static-top">
-    <div class="container-fluid">
+    <div class="container">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#">Helix Chat</a>
-        </div>
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-8">
+                <a class="navbar-brand" href="#">Helix Chat</a>
+         </div>
+        <nav id="bs-navbar" class="navbar-collapse collapse in" aria-expanded="true">
+
             <ul class="nav navbar-nav">
                 <sec:authorize access="isAuthenticated()">
-                    <li class="active"><a href="/subjects">Subjects list</a></li>
+                    <li><a href="/subjects">Subjects list</a></li>
                 </sec:authorize>
+
                 <li><a href="/users">Users</a></li>
                 <li><a href="#">Link</a></li>
             </ul>
-            <p class="navbar-text navbar-right">
+            <ul class="nav navbar-nav navbar-right">
+            <%--    <p class="navbar-text">--%>
+                <li>
+                    <sec:authorize access="isAnonymous()">
+                        <a href="registration" st>Registration</a>
+                    </sec:authorize>
+                </li>
+                <li>
+
+                    <sec:authorize access="isAnonymous()">
+                        <a href="/login">Sign In</a>
+                    </sec:authorize>
+                    <sec:authorize access="isAuthenticated()">
+                        <a href="/j_spring_security_logout">Sign Out</a>
+                    </sec:authorize>
+                    <%--</p>--%>
+                </li>
+
+            </ul>
+           <%-- <p class="navbar-text navbar-right">
                 <sec:authorize access="isAnonymous()">
                     <a href="/login">Sign In</a>
                 </sec:authorize>
                 <sec:authorize access="isAuthenticated()">
                     <a href="/j_spring_security_logout">Sign Out</a>
                 </sec:authorize>
-            </p>
-        </div>
+            </p>--%>
+
+        </nav>
     </div>
 </nav>
 
-<div class="content">
+<div class="content" style="width:77%;margin:0 auto;">
     <jsp:doBody/>
 </div>
 </body>

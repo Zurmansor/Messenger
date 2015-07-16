@@ -39,6 +39,9 @@ public class MessageRepository {
     }
 
     public void addMessage(Message message) {
+        if (LOG.isLoggable(Level.INFO)) {
+            LOG.log(Level.INFO, "adding a message");
+        }
         this.sessionFactory.getCurrentSession().save(message);
     }
 

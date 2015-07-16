@@ -5,6 +5,6 @@
 
 <t:template>
   <sec:authorize access="isAnonymous()">
-      <p><a class="btn btn-primary" href="registration">Registration</a></p>
+      <p><a class="btn btn-primary" href="registration" st>Registration</a></p>
   </sec:authorize>
 </t:template>

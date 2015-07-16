@@ -29,6 +29,9 @@
 .list-config-for{
 
 }
+nav li a:hover{
+    background: blue;
+}
 * {
 
     margin: 0;
@@ -228,4 +231,3 @@ body {
 
 }
 /* responsive rules */
-

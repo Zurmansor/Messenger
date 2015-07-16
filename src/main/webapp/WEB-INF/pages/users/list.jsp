@@ -7,7 +7,15 @@
 <t:template>
 
   <H1>Users</H1>
-
+  <div class="list-subject-container">
+    <sec:authorize access="hasRole('admin')">
+      <p>
+        <a href="/registration" class="btn btn-success">
+          Add user
+        </a>
+      </p>
+    </sec:authorize>
+  </div>
 
   <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
     <c:forEach items="${users}" var="user">
@@ -31,19 +39,6 @@
       </div>
     </c:forEach>
   </div>
-
-  <div class="list-subject-container">
-    <sec:authorize access="hasRole('admin')">
-      <p>
-        <a href="/registration" class="btn btn-success">
-          Add user
-        </a>
-      </p>
-    </sec:authorize>
-  </div>
-
-
-
 
 
 </t:template>
