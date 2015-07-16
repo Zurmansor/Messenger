@@ -5,21 +5,47 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <t:template>
+
   <H1>Users</H1>
-  <ul>
 
+
+  <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
     <c:forEach items="${users}" var="user">
-      <li><h3 class="bg-success">${user.login}</h3>
-        <sec:authorize access="hasRole('admin')">
-          <a href="/users/remove/${user.id}" class="btn btn-danger">Delete</a>
-        </sec:authorize>
-      </li>
+      <div class="panel panel-default">
+        <div class="panel-heading clearfix" role="tab" id="user-${user.id}">
+          <h4 class="panel-title">
+            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#description-${user.id}" aria-expanded="false" aria-controls="description-${user.id}">
+                <%--              <a href="/subjects/${user.id}/chats"> ${subject.name} </a>--%>
+                ${user.login}
+              <sec:authorize access="hasRole('admin')">
+                <a href="/users/remove/${user.id}" class="btn btn-danger btn-xs pull-right">Delete</a>
+              </sec:authorize>
+            </a>
+          </h4>
+        </div>
+        <div id="description-${user.id}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="user-${user.id}">
+          <div class="panel-body">
+              ${user.created}
+          </div>
+        </div>
+      </div>
     </c:forEach>
+  </div>
 
-  </ul>
-  <sec:authorize access="hasRole('admin')">
-      <p><a href="/registration" class="btn btn-success <%--center-block--%>">Add user</a></p>
-  </sec:authorize>
+  <div class="list-subject-container">
+    <sec:authorize access="hasRole('admin')">
+      <p>
+        <a href="/registration" class="btn btn-success">
+          Add user
+        </a>
+      </p>
+    </sec:authorize>
+  </div>
+
+
+
+
+
 </t:template>
 
 <%--<p class="bg-success">--%>

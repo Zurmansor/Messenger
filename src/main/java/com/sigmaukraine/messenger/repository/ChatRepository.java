@@ -7,15 +7,21 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @Repository
 @Transactional
 public class ChatRepository {
+    private static Logger LOG = Logger.getLogger(ChatRepository.class.getName());
 
     @Autowired
     private SessionFactory sessionFactory;
 
     public List<Chat> listAll() {
+        if (LOG.isLoggable(Level.INFO)) {
+            LOG.log(Level.INFO, "getting list of all chats");
+        }
         return this.sessionFactory.getCurrentSession().createQuery("from Chat")
                 .list();
     }
@@ -25,14 +31,23 @@ public class ChatRepository {
 
         if (null != contact) {
             this.sessionFactory.getCurrentSession().delete(contact);
+            if (LOG.isLoggable(Level.INFO)) {
+                LOG.log(Level.INFO, "removing the chat");
+            }
         }
     }
 
     public void addChat(Chat chat) {
         this.sessionFactory.getCurrentSession().save(chat);
+        if (LOG.isLoggable(Level.INFO)) {
+            LOG.log(Level.INFO, "adding a chat");
+        }
     }
 
     public List<Chat> getListChatsBySubjectId (int id) {
+        if (LOG.isLoggable(Level.INFO)) {
+            LOG.log(Level.INFO, "getting list of chats by subject's id");
+        }
         return this.sessionFactory.getCurrentSession()
                 .createQuery("FROM Chat WHERE themId=?")
                 .setParameter(0, id)

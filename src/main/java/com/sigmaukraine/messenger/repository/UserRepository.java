@@ -8,10 +8,13 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @Repository
 @Transactional
 public class UserRepository {
+    private static Logger LOG = Logger.getLogger(UserRepository.class.getName());
 
     @Autowired
     private SessionFactory sessionFactory;
@@ -25,9 +28,10 @@ public class UserRepository {
                 .createQuery("FROM User WHERE login=?")
                 .setParameter(0, login)
                 .list();
-
+        if (LOG.isLoggable(Level.INFO)) {
+            LOG.log(Level.INFO, "getting user by login");
+        }
         return users.size() > 0 ? users.get(0) : null;
-
     }
 
 /*    public User getUserByLoginAndPassword(String login, String password) {
@@ -40,15 +44,20 @@ public class UserRepository {
     }*/
 
     public List<User> listAll() {
+        if (LOG.isLoggable(Level.INFO)) {
+            LOG.log(Level.INFO, "getting list of all users");
+        }
         return this.sessionFactory.getCurrentSession().createQuery("from User")
                 .list();
     }
 
     public void removeUser(int id) {
         User contact = (User) this.sessionFactory.getCurrentSession().load(User.class, id);
-
         if (null != contact) {
             this.sessionFactory.getCurrentSession().delete(contact);
+            if (LOG.isLoggable(Level.INFO)) {
+                LOG.log(Level.INFO, "removing user");
+            }
         }
     }
 }

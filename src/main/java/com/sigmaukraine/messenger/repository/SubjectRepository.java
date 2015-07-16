@@ -1,22 +1,27 @@
 package com.sigmaukraine.messenger.repository;
 
 import com.sigmaukraine.messenger.domain.Subject;
-import com.sigmaukraine.messenger.domain.User;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @Repository
 @Transactional
 public class SubjectRepository {
+private static Logger LOG = Logger.getLogger(SubjectRepository.class.getName());
 
     @Autowired
     private SessionFactory sessionFactory;
 
     public List<Subject> listAll() {
+        if (LOG.isLoggable(Level.INFO)) {
+            LOG.log(Level.INFO, "getting list of all subjects");
+        }
         return this.sessionFactory.getCurrentSession().createQuery("from Subject")
                 .list();
     }
@@ -26,11 +31,17 @@ public class SubjectRepository {
 
         if (null != contact) {
             this.sessionFactory.getCurrentSession().delete(contact);
+            if (LOG.isLoggable(Level.INFO)) {
+                LOG.log(Level.INFO, "removing the subject");
+            }
         }
     }
 
     public void addSubject(Subject subject) {
         this.sessionFactory.getCurrentSession().save(subject);
+        if (LOG.isLoggable(Level.INFO)) {
+            LOG.log(Level.INFO, "adding a subject");
+        }
     }
 
     public Subject getSubjectByName(String name) {
@@ -38,7 +49,9 @@ public class SubjectRepository {
                 .createQuery("FROM Subject WHERE name=?")
                 .setParameter(0, name)//.uniqueResult()
                 .list();
-
+        if (LOG.isLoggable(Level.INFO)) {
+            LOG.log(Level.INFO, "adding a subject");
+        }
         return subjects.size() > 0 ? subjects.get(0) : null;
     }
 }

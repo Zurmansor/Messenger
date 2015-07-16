@@ -67,17 +67,4 @@ public class AuthController {
         return "login";
     }
 
-//    @RequestMapping(value = "/sign_in", method = RequestMethod.POST)
-//    public String signIn(@ModelAttribute("user") User user, BindingResult bindingResult) {
-//
-//        if (userRepository.getUserByLoginAndPassword(user.getLogin(), user.getPassword()) != null) {
-//
-//        } else {
-//            bindingResult.rejectValue("login", "invalid.login", "Wrong login or password");
-//            return "sign_in";
-//        }
-//
-//
-//    }
-
 }

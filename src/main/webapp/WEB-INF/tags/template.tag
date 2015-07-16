@@ -29,7 +29,7 @@
                 <sec:authorize access="isAuthenticated()">
                     <li class="active"><a href="/subjects">Subjects list</a></li>
                 </sec:authorize>
-                <li><a href="#">Link</a></li>
+                <li><a href="/users">Users</a></li>
                 <li><a href="#">Link</a></li>
             </ul>
             <p class="navbar-text navbar-right">
