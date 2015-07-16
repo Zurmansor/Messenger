@@ -50,7 +50,7 @@ private static Logger LOG = Logger.getLogger(SubjectRepository.class.getName());
                 .setParameter(0, name)//.uniqueResult()
                 .list();
         if (LOG.isLoggable(Level.INFO)) {
-            LOG.log(Level.INFO, "adding a subject");
+            LOG.log(Level.INFO, "select subject " + name);
         }
         return subjects.size() > 0 ? subjects.get(0) : null;
     }

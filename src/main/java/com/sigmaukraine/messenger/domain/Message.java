@@ -23,8 +23,8 @@ public class Message {
     @Column(name = "chat_id")
     private Integer chatId;
 
-/*    @OneToMany(mappedBy = "roleId")
-    private Set<User> user;*/
+//    @ManyToOne
+//    private User user;
 
     public Integer getId() {
         return id;
@@ -65,4 +65,12 @@ public class Message {
     public void setChatId(Integer chatId) {
         this.chatId = chatId;
     }
+
+//    public User getUser() {
+//        return user;
+//    }
+//
+//    public void setUser(User user) {
+//        this.user = user;
+//    }
 }

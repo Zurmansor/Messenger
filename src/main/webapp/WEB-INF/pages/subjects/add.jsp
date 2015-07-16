@@ -5,7 +5,7 @@
 <t:template>
   <div class="page-container">
 
-  <form:form class="form-horizontal" method="post" action="add" commandName="subject">
+  <form:form class="form-horizontal" method="post" action="add" commandName="subject" accept-charset="UTF-8">
 
     <H2 class="text-center">Add subject</H2>
 

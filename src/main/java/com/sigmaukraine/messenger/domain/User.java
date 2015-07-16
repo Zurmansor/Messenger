@@ -1,6 +1,7 @@
 package com.sigmaukraine.messenger.domain;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -45,9 +46,11 @@ public class User {
     @Column(name = "created_by")
     private Integer createdBy;
 
-    @OneToOne
-    @JoinColumn(name = "id")
-    private Role role;
+//    @ManyToOne
+//    private Role role;
+
+//    @OneToMany
+//    private List<Message> message;
 
 /*    @OneToMany(mappedBy = "userId")
     @JoinColumn(name = "id")

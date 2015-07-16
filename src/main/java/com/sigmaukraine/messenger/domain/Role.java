@@ -15,8 +15,8 @@ public class Role {
     @Column(name = "role")
     private String role;
 
-    @OneToMany(mappedBy = "roleId")
-    private Set<User> user;
+//    @OneToMany
+//    private Set<User> user;
 
     public Integer getId() {
         return id;

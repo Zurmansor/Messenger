@@ -13,7 +13,7 @@
         <div class="panel-body">
             <c:forEach items="${messages}" var="message">
               <div>
-                <span>${message.userId}: </span>
+                <span>${message.user_id}: </span>
                 <span>${message.text}</span>
               </div>
             </c:forEach>

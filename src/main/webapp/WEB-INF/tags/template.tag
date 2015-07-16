@@ -5,6 +5,7 @@
 <!doctype>
 <html>
 <head>
+    <meta charset="UTF-8"/>
     <title>Messenger</title>
     <!-- Latest compiled and minified CSS -->
     <link href="<c:url value="/resources/bootstrap/css/bootstrap.min.css" />" rel="stylesheet">
@@ -22,7 +23,10 @@
 <nav class="navbar navbar-default navbar-static-top">
     <div class="container">
         <div class="navbar-header">
-                <a class="navbar-brand" href="#">Helix Chat</a>
+                <a class="navbar-brand" href="#">
+                    <img style="max-width:100px; margin-top: -7px; height: 36px; display: inline" src="/resources/img/logo.png"/>
+                    Helix Chat
+                </a>
          </div>
         <nav id="bs-navbar" class="navbar-collapse collapse in" aria-expanded="true">
 
