@@ -2,9 +2,17 @@
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <t:template>
-  <sec:authorize access="isAnonymous()">
-      <p><a class="btn btn-primary" href="registration" st>Registration</a></p>
-  </sec:authorize>
+    <h2>
+        --> <spring:message code="label.title"/>
+    </h2>
+
+
+    <span style="float: right">
+        <a href="?lang=en">en</a>
+        |
+        <a href="?lang=ru">ru</a>
+    </span>
 </t:template>

@@ -1,12 +1,9 @@
 package com.sigmaukraine.messenger.controller;
 
 import com.sigmaukraine.messenger.domain.Chat;
-import com.sigmaukraine.messenger.domain.Message;
 import com.sigmaukraine.messenger.repository.ChatRepository;
-import com.sigmaukraine.messenger.repository.MessageRepository;
 import com.sigmaukraine.messenger.repository.UserRepository;
 import com.sigmaukraine.messenger.validation.ChatValidator;
-import com.sigmaukraine.messenger.validation.MessageValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -60,6 +57,11 @@ public class ChatController {
     public String addChat(@ModelAttribute("chat") Chat chat, BindingResult bindingResult, @PathVariable Integer id) {
         this.chatValidator.validate(chat, bindingResult);
 
+
+        if (!chatRepository.isUnique(chat.getName(), id)) {
+            bindingResult.rejectValue("name", "invalid.name", "Chat with this name already exist");
+//            return "chats/add";
+        }
         if (bindingResult.hasErrors()) {
             return "chats/add";
         }
@@ -67,7 +69,7 @@ public class ChatController {
         User userDetails = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         com.sigmaukraine.messenger.domain.User user = userRepository.getUserByLogin(userDetails.getUsername());
         chat.setCreatedBy(user.getId());
-        chat.setThemId(id);
+        chat.setSubjectId(id);
         this.chatRepository.addChat(chat);
         return "redirect:/subjects/"+ id +"/chats";
     }

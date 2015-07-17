@@ -24,7 +24,7 @@
     <div class="container">
         <div class="navbar-header">
                 <a class="navbar-brand" href="#">
-                    <img style="max-width:100px; margin-top: -7px; height: 36px; display: inline" src="/resources/img/logo.png"/>
+                    <img style="max-width:100px; margin-top: -10px; height: 36px; display: inline" src="/resources/img/logo.png"/>
                     Helix Chat
                 </a>
          </div>

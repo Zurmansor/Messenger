@@ -14,8 +14,8 @@ public class Chat {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "them_id")
-    private Integer themId;
+    @Column(name = "subject_id")
+    private Integer subjectId;
 
     @Column(name = "description")
     private String description;
@@ -42,12 +42,12 @@ public class Chat {
         this.name = name;
     }
 
-    public Integer getThemId() {
-        return themId;
+    public Integer getSubjectId() {
+        return subjectId;
     }
 
-    public void setThemId(Integer themId) {
-        this.themId = themId;
+    public void setSubjectId(Integer subjectId) {
+        this.subjectId = subjectId;
     }
 
     public String getDescription() {

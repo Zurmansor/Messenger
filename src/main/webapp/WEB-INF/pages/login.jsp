@@ -3,6 +3,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <t:template>
+  <div class="content" style="width:45%;margin:0 auto;">
   <form:form method="post" action="/j_spring_security_check" commandName="user">
 
     <H2 class="text-center">Sign In</H2>
@@ -30,6 +31,7 @@
 
 
   </form:form>
+  </div>
 </t:template>
 
 

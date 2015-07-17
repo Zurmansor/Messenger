@@ -38,6 +38,10 @@ public class ChatRepository {
     }
 
     public void addChat(Chat chat) {
+
+/*        if () {
+            subjects.size() > 0 ? subjects.get(0) : null
+        }*/
         this.sessionFactory.getCurrentSession().save(chat);
         if (LOG.isLoggable(Level.INFO)) {
             LOG.log(Level.INFO, "adding a chat");
@@ -49,19 +53,19 @@ public class ChatRepository {
             LOG.log(Level.INFO, "getting list of chats by subject's id");
         }
         return this.sessionFactory.getCurrentSession()
-                .createQuery("FROM Chat WHERE themId=?")
+                .createQuery("FROM Chat WHERE subjectId=?")
                 .setParameter(0, id)
                 .list();
     }
 
 
 
-/*    public Subject getSubjectByName(String name) {
-        List<Subject> subjects = this.sessionFactory.getCurrentSession()
-                .createQuery("FROM Subject WHERE name=?")
-                .setParameter(0, name)//.uniqueResult()
+    public boolean isUnique(String name, int checkSubjectId) {
+        List<Chat> chats = this.sessionFactory.getCurrentSession()
+                .createQuery("FROM Chat WHERE name=? AND subjectId=?")
+                .setParameter(0, name)
+                .setParameter(1, checkSubjectId)
                 .list();
-
-        return subjects.size() > 0 ? subjects.get(0) : null;
-    }*/
+        return chats.size() == 0;
+    }
 }
