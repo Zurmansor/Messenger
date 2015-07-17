@@ -57,10 +57,12 @@ public class ChatController {
     public String addChat(@ModelAttribute("chat") Chat chat, BindingResult bindingResult, @PathVariable Integer id) {
         this.chatValidator.validate(chat, bindingResult);
 
+        //todo: fix base them
+        //todo: unique base
 
         if (!chatRepository.isUnique(chat.getName(), id)) {
             bindingResult.rejectValue("name", "invalid.name", "Chat with this name already exist");
-//            return "chats/add";
+            return "chats/add";
         }
         if (bindingResult.hasErrors()) {
             return "chats/add";

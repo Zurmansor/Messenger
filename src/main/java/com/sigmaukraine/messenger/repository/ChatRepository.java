@@ -38,10 +38,6 @@ public class ChatRepository {
     }
 
     public void addChat(Chat chat) {
-
-/*        if () {
-            subjects.size() > 0 ? subjects.get(0) : null
-        }*/
         this.sessionFactory.getCurrentSession().save(chat);
         if (LOG.isLoggable(Level.INFO)) {
             LOG.log(Level.INFO, "adding a chat");
