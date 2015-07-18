@@ -1,11 +1,13 @@
 package com.sigmaukraine.messenger.repository;
 
 import com.sigmaukraine.messenger.domain.Subject;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.transaction.Transaction;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,7 +29,7 @@ private static Logger LOG = Logger.getLogger(SubjectRepository.class.getName());
     }
 
     public void removeSubject(int id) {
-        Subject contact = (Subject) this.sessionFactory.getCurrentSession().load(Subject.class, id);
+        Subject contact = (Subject) this.sessionFactory.getCurrentSession().get(Subject.class, id);
 
         if (null != contact) {
             this.sessionFactory.getCurrentSession().delete(contact);
@@ -53,5 +55,18 @@ private static Logger LOG = Logger.getLogger(SubjectRepository.class.getName());
             LOG.log(Level.INFO, "select subject " + name);
         }
         return subjects.size() > 0 ? subjects.get(0) : null;
+    }
+
+    public Subject getSubjectById(int id) {
+        return (Subject) this.sessionFactory.getCurrentSession().get(Subject.class, id);
+    }
+
+    public void editSubject(int subjectId ,Subject updatedSubject) {
+        Session session = sessionFactory.openSession();
+//        Transaction tr = (Transaction) session.beginTransaction();
+        Subject subject = getSubjectById(subjectId);
+        subject.setName(updatedSubject.getName());
+        subject.setDescription(updatedSubject.getDescription());
+        session.update(subject);
     }
 }

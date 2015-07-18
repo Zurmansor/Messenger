@@ -78,4 +78,35 @@ public class SubjectController {
         this.subjectRepository.removeSubject(id);
         return "redirect:/subjects";
     }
+
+    @RequestMapping(value = "/subjects/edit/{id}", method = RequestMethod.GET)
+    @PreAuthorize("hasRole('admin')")
+    public String editSubject(@PathVariable Integer id, Model model) {
+        Subject subject = this.subjectRepository.getSubjectById(id);
+        if (subject == null) {
+            return "redirect:/subjects";
+        }
+        model.addAttribute("subject", subject);
+        return "subjects/edit";
+    }
+
+    @RequestMapping(value = "/subjects/edit/{id}", method = RequestMethod.POST)
+    @PreAuthorize("hasRole('admin')")
+    public String editSubject(@PathVariable Integer id, @ModelAttribute("subject") Subject subject, BindingResult bindingResult) {
+        this.subjectValidator.validate(subject, bindingResult);
+
+        if (bindingResult.hasErrors()) {
+            return "subjects/edit";
+        }
+
+        Subject checkSubject = subjectRepository.getSubjectByName(subject.getName());
+        if (checkSubject != null && !checkSubject.getId().equals(id)) {
+            bindingResult.rejectValue("name", "invalid.name", "Subject with this name already exist");
+            return "subjects/edit";
+        }
+        this.subjectRepository.editSubject(id, subject);
+        return "redirect:/subjects";
+    }
+
+
 }

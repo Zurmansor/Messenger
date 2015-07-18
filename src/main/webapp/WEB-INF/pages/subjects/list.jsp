@@ -26,6 +26,7 @@
                         <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#description-${subject.id}" aria-expanded="false" aria-controls="description-${subject.id}">
                             <a href="/subjects/${subject.id}/chats"> ${subject.name} </a>
                             <sec:authorize access="hasRole('admin')">
+                                <a href="/subjects/edit/${subject.id}" class="btn btn-info btn-xs pull-right">Edit</a>
                                 <a href="/subjects/remove/${subject.id}" class="btn btn-danger btn-xs pull-right">Delete</a>
                             </sec:authorize>
                         </a>

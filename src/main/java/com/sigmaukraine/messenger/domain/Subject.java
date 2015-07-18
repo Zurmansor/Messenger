@@ -1,6 +1,7 @@
 package com.sigmaukraine.messenger.domain;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "subjects")
@@ -18,7 +19,8 @@ public class Subject {
     private String description;
 
     @Column(name = "created")
-    private Integer created;
+    private Timestamp created;
+//    TODO: Integer-->Timestamp in other classes
 
     @Column(name = "created_by")
     private Integer createdBy;
@@ -47,11 +49,11 @@ public class Subject {
         this.description = description;
     }
 
-    public Integer getCreated() {
+    public Timestamp getCreated() {
         return created;
     }
 
-    public void setCreated(Integer created) {
+    public void setCreated(Timestamp created) {
         this.created = created;
     }
 
