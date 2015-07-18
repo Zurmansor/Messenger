@@ -19,6 +19,7 @@
                     <h4 class="panel-title">
                         <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#description-${chat.id}" aria-expanded="false" aria-controls="description-${chat.id}">
                             <a href="/subjects/${subjectId}/chats/${chat.id}/messages"> ${chat.name} </a>
+                            <a href="/chats/edit/${chat.id}" class="btn btn-info btn-xs pull-right">Edit</a>
     <%--                        <sec:authorize access="hasRole('admin')">
                                 <a href="/chats/remove/${chat.id}" class="btn btn-danger btn-xs pull-right">Delete</a>
                             </sec:authorize>--%>

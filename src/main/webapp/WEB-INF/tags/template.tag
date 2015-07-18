@@ -1,6 +1,7 @@
 <%@ tag description="Template Tag" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <!doctype>
 <html>
@@ -13,7 +14,7 @@
     <!-- Optional theme -->
     <link href="<c:url value="/resources/bootstrap/css/bootstrap-theme.min.css" />" rel="stylesheet">
 
-    <script src="resources/js/jquery-1.11.3.min.js"></script>
+    <script src="/resources/js/jquery-1.11.3.min.js"></script>
     <script src="/resources/bootstrap/js/transition.js"></script>
     <script src="/resources/bootstrap/js/collapse.js"></script>
     <script src="/resources/bootstrap/js/bootstrap.min.js"></script>
@@ -23,7 +24,7 @@
 <nav class="navbar navbar-default navbar-static-top">
     <div class="container">
         <div class="navbar-header">
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand" href="/">
                     <img style="max-width:100px; margin-top: -10px; height: 36px; display: inline" src="/resources/img/logo.png"/>
                     Helix Chat
                 </a>
@@ -35,7 +36,7 @@
                     <li><a href="/subjects">Subjects list</a></li>
                 </sec:authorize>
 
-                <li><a href="/users">Users</a></li>
+                <li><a href="/users"><spring:message code="nav.users"/></a></li>
                 <li><a href="#">Link</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">

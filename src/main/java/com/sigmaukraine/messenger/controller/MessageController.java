@@ -11,10 +11,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -39,20 +36,23 @@ public class MessageController {
     @PreAuthorize("isAuthenticated()")
     public String list(Model model, @PathVariable Integer subjectId, @PathVariable Integer chatId) {
         List<Message> messages = this.messageRepository.getListMessagesByChatId(chatId);
-        model.addAttribute("messages", messages);
+        User userDetails = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
+        model.addAttribute("messages", messages);
         model.addAttribute("message", new Message());
+        model.addAttribute("login", userDetails.getUsername());
         return "messages/list";
     }
 
 
     @RequestMapping(value = "subjects/{subjectId}/chats/{chatId}/messages/add", method = RequestMethod.POST)
+    @ResponseBody
     @PreAuthorize("isAuthenticated()")
     public String addMessage(@ModelAttribute("message") Message message, BindingResult bindingResult, @PathVariable Integer subjectId, @PathVariable Integer chatId) {
         this.messageValidator.validate(message, bindingResult);
 
         if (bindingResult.hasErrors()) {
-            return "messages/list";
+            return "error";
         }
 
         message.setChatId(chatId);
@@ -62,7 +62,8 @@ public class MessageController {
         message.setUserId(user.getId());
         this.messageRepository.addMessage(message);
 
-        return "redirect:/subjects/"+subjectId +"/chats/"+ chatId +"/messages";
+        return "ok";
+//        return "redirect:/subjects/"+subjectId +"/chats/"+ chatId +"/messages";
     }
 
 /*    @RequestMapping(value = "/messages/remove/{id}", method = RequestMethod.GET)
