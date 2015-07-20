@@ -50,9 +50,9 @@ public class User {
 //    @ManyToOne
 //    private Role role;
 
-    @OneToMany
+//    @OneToMany
 //    @JoinColumn(name = "id")
-    private List<Message> message;
+//    private List<Message> message;
 
 /*    @OneToMany(mappedBy = "userId")
     @JoinColumn(name = "id")

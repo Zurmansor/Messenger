@@ -8,7 +8,11 @@
 <t:template>
     <script language="javascript" type="text/javascript">
         var login = "${login}";
-        var lastMessageTime = "${messages.get(messages.size()-1).created}";
+        var lastMessageTime = null;
+        <c:if test="${messages.size()>0}">
+            lastMessageTime = "${messages.get(messages.size()-1).created}";
+        </c:if>
+
     </script>
     <script language="javascript" type="text/javascript" src="/resources/js/chat.js"></script>
 

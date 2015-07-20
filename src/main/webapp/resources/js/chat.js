@@ -53,12 +53,7 @@ function appendMessage (message) {
 function getNewMessages () {
     $.ajax({
         url: "messages/get/" + lastMessageTime,
-        method: "GET",
-        beforeSend: function(xhr) {
-            xhr.setRequestHeader("Accept", "*/*");
-            xhr.setRequestHeader("Content-Type", "application/json");
-        }
-        //dataType: "JSON"
+        method: "GET"
     }).success(function(data) {
         console.log(data);
 /*        if (data == "ok") {
