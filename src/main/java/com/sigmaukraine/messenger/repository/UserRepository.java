@@ -64,6 +64,9 @@ public class UserRepository {
 
 
     public User getUserById(int id) {
+        if (LOG.isLoggable(Level.INFO)) {
+            LOG.log(Level.INFO, "getting user by id");
+        }
         return (User) this.sessionFactory.getCurrentSession().get(User.class, id);
     }
 
@@ -78,5 +81,8 @@ public class UserRepository {
         user.setPhone(updatedUser.getPhone());
         user.setComment(updatedUser.getComment());
         session.update(user);
+        if (LOG.isLoggable(Level.INFO)) {
+            LOG.log(Level.INFO, "editing user");
+        }
     }
 }

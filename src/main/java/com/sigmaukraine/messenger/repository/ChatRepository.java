@@ -62,6 +62,9 @@ public class ChatRepository {
                 .setParameter(0, name)
                 .setParameter(1, checkSubjectId)
                 .list();
+        if (LOG.isLoggable(Level.INFO)) {
+            LOG.log(Level.INFO, "checks is chat unique");
+        }
         return chats.size() == 0;
     }
 }

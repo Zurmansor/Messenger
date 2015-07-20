@@ -58,6 +58,9 @@ private static Logger LOG = Logger.getLogger(SubjectRepository.class.getName());
     }
 
     public Subject getSubjectById(int id) {
+        if (LOG.isLoggable(Level.INFO)) {
+            LOG.log(Level.INFO, "getting subject by id");
+        }
         return (Subject) this.sessionFactory.getCurrentSession().get(Subject.class, id);
     }
 
@@ -68,5 +71,8 @@ private static Logger LOG = Logger.getLogger(SubjectRepository.class.getName());
         subject.setName(updatedSubject.getName());
         subject.setDescription(updatedSubject.getDescription());
         session.update(subject);
+        if (LOG.isLoggable(Level.INFO)) {
+            LOG.log(Level.INFO, "editing subject");
+        }
     }
 }

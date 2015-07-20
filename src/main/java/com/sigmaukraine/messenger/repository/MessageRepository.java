@@ -58,8 +58,10 @@ public class MessageRepository {
     }
 
     public List<Message> getNewMessages (int chatId, Timestamp lastMessageTimeStamp) {
-
-         return this.sessionFactory.getCurrentSession()
+        if (LOG.isLoggable(Level.INFO)) {
+            LOG.log(Level.INFO, "getting new messages");
+        }
+        return this.sessionFactory.getCurrentSession()
                 .createQuery("FROM Message WHERE created>? AND chatId=?")
                 .setParameter(0, lastMessageTimeStamp)
                 .setParameter(1, chatId)
