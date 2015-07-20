@@ -38,6 +38,7 @@ public class AuthController {
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public String registration(@ModelAttribute("user") User user, BindingResult bindingResult) {
         this.userValidator.validate(user, bindingResult);
+        this.userValidator.validatePasswords(user, bindingResult);
 
         if (bindingResult.hasErrors()){
             return "registration";

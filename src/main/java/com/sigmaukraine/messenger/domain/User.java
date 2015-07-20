@@ -36,7 +36,7 @@ public class User {
     private String lastName;
 
     @Column(name = "phone")
-    private Integer phone;
+    private String phone;
 
     @Column(name = "comment")
     private String comment;
@@ -122,11 +122,11 @@ public class User {
         this.lastName = lastName;
     }
 
-    public Integer getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(Integer phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 

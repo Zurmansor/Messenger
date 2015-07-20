@@ -1,6 +1,7 @@
 package com.sigmaukraine.messenger.repository;
 
 import com.sigmaukraine.messenger.domain.Chat;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -67,4 +68,24 @@ public class ChatRepository {
         }
         return chats.size() == 0;
     }
+
+    public Chat getChatById(int id) {
+        if (LOG.isLoggable(Level.INFO)) {
+            LOG.log(Level.INFO, "getting chat by id");
+        }
+        return (Chat) this.sessionFactory.getCurrentSession().get(Chat.class, id);
+    }
+
+    public void editChat(int chatId,Chat updatedChat) {
+        Session session = sessionFactory.openSession();
+        Chat chat = getChatById(chatId);
+            chat.setName(updatedChat.getName());
+            chat.setDescription(updatedChat.getDescription());
+            session.update(chat);
+            if (LOG.isLoggable(Level.INFO)) {
+                LOG.log(Level.INFO, "editing chat");
+            }
+    }
+
+
 }

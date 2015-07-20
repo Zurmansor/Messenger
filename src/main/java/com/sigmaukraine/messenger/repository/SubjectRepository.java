@@ -66,7 +66,6 @@ private static Logger LOG = Logger.getLogger(SubjectRepository.class.getName());
 
     public void editSubject(int subjectId ,Subject updatedSubject) {
         Session session = sessionFactory.openSession();
-//        Transaction tr = (Transaction) session.beginTransaction();
         Subject subject = getSubjectById(subjectId);
         subject.setName(updatedSubject.getName());
         subject.setDescription(updatedSubject.getDescription());
