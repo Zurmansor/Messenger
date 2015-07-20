@@ -8,6 +8,7 @@
 <t:template>
     <script language="javascript" type="text/javascript">
         var login = "${login}";
+        var lastMessageTime = "${messages.get(messages.size()-1).created}";
     </script>
     <script language="javascript" type="text/javascript" src="/resources/js/chat.js"></script>
 
@@ -18,7 +19,7 @@
         <div id="message-desk" class="panel-body">
             <c:forEach items="${messages}" var="message">
               <div>
-                <span>${message.userId}: </span>
+                <span>${message.user.login}: </span>
                 <span>${message.text}</span>
               </div>
             </c:forEach>
@@ -40,6 +41,7 @@
             <form:errors class="text-danger bg-danger" path="text"></form:errors>
 
             <input type="submit" id="btn-add-message" class="btn btn-success center-block"  value="Add message" />
+            <input type="button" id="btn-add-aaa" class="btn btn-info center-block"  value="aaa!" />
 
         </form:form>
     </div>

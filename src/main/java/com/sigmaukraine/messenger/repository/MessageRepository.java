@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -55,6 +56,18 @@ public class MessageRepository {
                 .setParameter(0, id)
                 .list();
     }
+
+    public List<Message> getNewMessages (int chatId, Timestamp lastMessageTimeStamp) {
+
+         return this.sessionFactory.getCurrentSession()
+                .createQuery("FROM Message WHERE created>? AND chatId=?")
+                .setParameter(0, lastMessageTimeStamp)
+                .setParameter(1, chatId)
+                .list();
+    }
+
+
+
 /*    public Subject getSubjectByName(String name) {
         List<Subject> subjects = this.sessionFactory.getCurrentSession()
                 .createQuery("FROM Subject WHERE name=?")

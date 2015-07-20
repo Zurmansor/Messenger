@@ -5,6 +5,7 @@ import com.sigmaukraine.messenger.repository.MessageRepository;
 import com.sigmaukraine.messenger.repository.UserRepository;
 import com.sigmaukraine.messenger.validation.MessageValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
@@ -13,6 +14,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -63,7 +66,23 @@ public class MessageController {
         this.messageRepository.addMessage(message);
 
         return "ok";
-//        return "redirect:/subjects/"+subjectId +"/chats/"+ chatId +"/messages";
+    }
+
+    @RequestMapping(value = "subjects/{subjectId}/chats/{chatId}/messages/get/{lastMessageTime}", method = RequestMethod.GET)
+    @ResponseBody
+    @PreAuthorize("isAuthenticated()")
+    public List<String> get(Model model, @PathVariable Integer subjectId, @PathVariable Integer chatId, @PathVariable String lastMessageTime) {
+
+        Timestamp lastMessageTimeStamp = Timestamp.valueOf(lastMessageTime);
+        System.out.println("Hello jerk!");
+        System.out.println(lastMessageTimeStamp);
+
+        List<Message> newMessages = messageRepository.getNewMessages(chatId, lastMessageTimeStamp);
+
+        List<String> l = new ArrayList<String>();
+        l.add("aaa");
+        l.add("bbb");
+        return l;
     }
 
 /*    @RequestMapping(value = "/messages/remove/{id}", method = RequestMethod.GET)

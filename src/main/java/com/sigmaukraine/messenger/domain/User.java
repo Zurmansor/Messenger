@@ -1,6 +1,7 @@
 package com.sigmaukraine.messenger.domain;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Set;
 
@@ -41,7 +42,7 @@ public class User {
     private String comment;
 
     @Column(name = "created")
-    private Integer created;
+    private Timestamp created;
 
     @Column(name = "created_by")
     private Integer createdBy;
@@ -49,8 +50,9 @@ public class User {
 //    @ManyToOne
 //    private Role role;
 
-//    @OneToMany
-//    private List<Message> message;
+    @OneToMany
+//    @JoinColumn(name = "id")
+    private List<Message> message;
 
 /*    @OneToMany(mappedBy = "userId")
     @JoinColumn(name = "id")
@@ -136,11 +138,11 @@ public class User {
         this.comment = comment;
     }
 
-    public Integer getCreated() {
+    public Timestamp getCreated() {
         return created;
     }
 
-    public void setCreated(Integer created) {
+    public void setCreated(Timestamp created) {
         this.created = created;
     }
 

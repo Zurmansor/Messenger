@@ -1,6 +1,7 @@
 package com.sigmaukraine.messenger.domain;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.Set;
 
 @Entity
@@ -18,13 +19,17 @@ public class Message {
     private Integer userId;
 
     @Column(name = "created")
-    private Integer created;
+    private Timestamp created;
 
     @Column(name = "chat_id")
     private Integer chatId;
 
 //    @ManyToOne
 //    private User user;
+
+    @ManyToOne()
+    @JoinColumn(name = "user_id", nullable = false, insertable = false, updatable = false)
+    private User user;
 
     public Integer getId() {
         return id;
@@ -50,11 +55,11 @@ public class Message {
         this.userId = userId;
     }
 
-    public Integer getCreated() {
+    public Timestamp getCreated() {
         return created;
     }
 
-    public void setCreated(Integer created) {
+    public void setCreated(Timestamp created) {
         this.created = created;
     }
 
@@ -66,9 +71,9 @@ public class Message {
         this.chatId = chatId;
     }
 
-//    public User getUser() {
-//        return user;
-//    }
+    public User getUser() {
+        return user;
+    }
 //
 //    public void setUser(User user) {
 //        this.user = user;

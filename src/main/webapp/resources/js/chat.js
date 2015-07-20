@@ -5,7 +5,11 @@ $(document).ready(function() {
 function addEvents () {
     var formAddMessage = $("#form-add-message");
     formAddMessage.submit(onSubmitForm);
+
+   var btnAddAaa = $("#btn-add-aaa");
+   btnAddAaa.click(getNewMessages);
 }
+
 
 function onSubmitForm () {
     addMessage();
@@ -13,7 +17,6 @@ function onSubmitForm () {
 }
 
 function addMessage () {
-    console.log(1234567890);
     var formAddMessage = $("#form-add-message");
     var url = formAddMessage.attr("action");
     var message = $("#text");
@@ -45,4 +48,24 @@ function appendMessage (message) {
 
     messageDesk.append(div);
     //console.log(message);
+}
+
+function getNewMessages () {
+    $.ajax({
+        url: "messages/get/" + lastMessageTime,
+        method: "GET",
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader("Accept", "*/*");
+            xhr.setRequestHeader("Content-Type", "application/json");
+        }
+        //dataType: "JSON"
+    }).success(function(data) {
+        console.log(data);
+/*        if (data == "ok") {
+            appendMessage(message.val());
+            message.val("");
+        }*/
+    }).error(function(error) {
+        console.error(error);
+    });
 }

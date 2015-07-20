@@ -2,6 +2,7 @@ package com.sigmaukraine.messenger.repository;
 
 import com.sigmaukraine.messenger.domain.Subject;
 import com.sigmaukraine.messenger.domain.User;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -59,5 +60,23 @@ public class UserRepository {
                 LOG.log(Level.INFO, "removing user");
             }
         }
+    }
+
+
+    public User getUserById(int id) {
+        return (User) this.sessionFactory.getCurrentSession().get(User.class, id);
+    }
+
+    public void editUser(int userId ,User updatedUser) {
+        Session session = sessionFactory.openSession();
+//        Transaction tr = (Transaction) session.beginTransaction();
+        User user = getUserById(userId);
+        user.setLogin(updatedUser.getLogin());
+        user.setFirstName(updatedUser.getFirstName());
+        user.setLastName(updatedUser.getLastName());
+        user.setEmail(updatedUser.getEmail());
+        user.setPhone(updatedUser.getPhone());
+        user.setComment(updatedUser.getComment());
+        session.update(user);
     }
 }

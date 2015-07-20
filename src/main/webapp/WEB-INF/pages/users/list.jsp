@@ -26,6 +26,7 @@
                 <%--              <a href="/subjects/${user.id}/chats"> ${subject.name} </a>--%>
                 ${user.login}
               <sec:authorize access="hasRole('admin')">
+                <a href="/users/edit/${user.id}" class="btn btn-info btn-xs pull-right">Edit</a>
                 <a href="/users/remove/${user.id}" class="btn btn-danger btn-xs pull-right">Delete</a>
               </sec:authorize>
             </a>

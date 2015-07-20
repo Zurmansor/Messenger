@@ -1,16 +1,17 @@
 package com.sigmaukraine.messenger.controller;
 
 
+import com.sigmaukraine.messenger.domain.Subject;
 import com.sigmaukraine.messenger.domain.User;
 import com.sigmaukraine.messenger.repository.UserRepository;
+import com.sigmaukraine.messenger.validation.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -18,13 +19,15 @@ import java.util.List;
 @Controller
 public class UserController {
     private UserRepository userRepository;
+    private UserValidator userValidator;
 
     public UserController() {
     }
 
     @Autowired
-    public UserController(UserRepository userRepository) {
+    public UserController(UserRepository userRepository, UserValidator userValidator) {
         this.userRepository = userRepository;
+        this.userValidator = userValidator;
     }
 
     //Spring Security see this :
@@ -60,4 +63,30 @@ public class UserController {
         this.userRepository.removeUser(id);
         return "redirect:/users";
     }
+
+    @RequestMapping(value = "/users/edit/{id}", method = RequestMethod.GET)
+    @PreAuthorize("hasRole('admin')")
+    public String editUser(@PathVariable Integer id, Model model) {
+        User user = this.userRepository.getUserById(id);
+        if (user == null) {
+            return "redirect:/users";
+        }
+        model.addAttribute("user", user);
+        return "users/edit";
+    }
+
+    @RequestMapping(value = "/users/edit/{id}", method = RequestMethod.POST)
+    @PreAuthorize("hasRole('admin')")
+    public String editUser(@PathVariable Integer id, @ModelAttribute("user") User user, BindingResult bindingResult) {
+        this.userValidator.validate(user, bindingResult);
+
+        if (bindingResult.hasErrors()) {
+            return "users/edit";
+        }
+
+
+        this.userRepository.editUser(id, user);
+        return "redirect:/users";
+    }
+
 }
