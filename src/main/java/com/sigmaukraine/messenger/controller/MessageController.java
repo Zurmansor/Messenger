@@ -1,5 +1,6 @@
 package com.sigmaukraine.messenger.controller;
 
+import com.google.gson.Gson;
 import com.sigmaukraine.messenger.domain.Message;
 import com.sigmaukraine.messenger.repository.MessageRepository;
 import com.sigmaukraine.messenger.repository.UserRepository;
@@ -68,10 +69,11 @@ public class MessageController {
         return "ok";
     }
 
-    @RequestMapping(value = "subjects/{subjectId}/chats/{chatId}/messages/get/{lastMessageTime}", method = RequestMethod.GET)
+    @RequestMapping(value = "subjects/{subjectId}/chats/{chatId}/messages/get/{lastMessageTime}", method = RequestMethod.GET,
+            produces = "application/json; charset=utf-8")
     @ResponseBody
     @PreAuthorize("isAuthenticated()")
-    public List<String> get(Model model, @PathVariable Integer subjectId, @PathVariable Integer chatId, @PathVariable String lastMessageTime) {
+    public String get(Model model, @PathVariable Integer subjectId, @PathVariable Integer chatId, @PathVariable String lastMessageTime) {
 
         Timestamp lastMessageTimeStamp = Timestamp.valueOf(lastMessageTime);
         System.out.println("Hello jerk!");
@@ -79,10 +81,8 @@ public class MessageController {
 
         List<Message> newMessages = messageRepository.getNewMessages(chatId, lastMessageTimeStamp);
 
-        List<String> l = new ArrayList<String>();
-        l.add("aaa");
-        l.add("bbb");
-        return l;
+        Gson gson = new Gson();
+        return gson.toJson(newMessages);
     }
 
 /*    @RequestMapping(value = "/messages/remove/{id}", method = RequestMethod.GET)
