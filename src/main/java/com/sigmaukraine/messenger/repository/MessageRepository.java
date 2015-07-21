@@ -52,8 +52,9 @@ public class MessageRepository {
             LOG.log(Level.INFO, "getting list of messages by id");
         }
         return this.sessionFactory.getCurrentSession()
-                .createQuery("FROM Message WHERE chatId=?")
+                .createQuery("FROM Message WHERE chatId=? ORDER BY created DESC ")
                 .setParameter(0, id)
+                .setMaxResults(20)
                 .list();
     }
 

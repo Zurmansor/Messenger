@@ -1,6 +1,7 @@
 package com.sigmaukraine.messenger.controller;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.sigmaukraine.messenger.domain.Message;
 import com.sigmaukraine.messenger.repository.MessageRepository;
 import com.sigmaukraine.messenger.repository.UserRepository;
@@ -74,14 +75,12 @@ public class MessageController {
     @ResponseBody
     @PreAuthorize("isAuthenticated()")
     public String get(Model model, @PathVariable Integer subjectId, @PathVariable Integer chatId, @PathVariable String lastMessageTime) {
-
         Timestamp lastMessageTimeStamp = Timestamp.valueOf(lastMessageTime);
-        System.out.println("Hello jerk!");
-        System.out.println(lastMessageTimeStamp);
 
         List<Message> newMessages = messageRepository.getNewMessages(chatId, lastMessageTimeStamp);
-
-        Gson gson = new Gson();
+        Gson gson = new GsonBuilder()
+                .setDateFormat("yyyy-MM-dd HH:mm:ss.S")
+                .create();
         return gson.toJson(newMessages);
     }
 

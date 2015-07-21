@@ -22,9 +22,6 @@
                             <sec:authorize access="hasRole('admin')">
                                 <a href="/subjects/${subjectId}/chats/${chat.id}/edit/${chat.id}" class="btn btn-info btn-xs pull-right">Edit</a>
                             </sec:authorize>
-    <%--                        <sec:authorize access="hasRole('admin')">
-                                <a href="/chats/remove/${chat.id}" class="btn btn-danger btn-xs pull-right">Delete</a>
-                            </sec:authorize>--%>
                         </a>
                     </h4>
                 </div>
