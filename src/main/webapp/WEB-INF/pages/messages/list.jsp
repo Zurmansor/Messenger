@@ -8,9 +8,9 @@
 <t:template>
     <script language="javascript" type="text/javascript">
         var login = "${login}";
-        var lastMessageTime = null;
+        var lastMessageTime = "1000-01-01 00:00:00.0";
         <c:if test="${messages.size()>0}">
-            lastMessageTime = "${messages.get(messages.size()-1).created}";
+            lastMessageTime = "${messages.get(0).created}";
         </c:if>
 
     </script>
@@ -22,13 +22,14 @@
                 <li><a href="/subjects/${subjectId}/chats">Chats: ${chatName}</a></li>
                 <li class="active"><a href="#">Messages</a></li>
             </ol>
+    <div class="panel panel-primary">
         <div class="panel-heading">
             <h3 class="panel-title">${chatName}</h3>
         </div>
-        <div id="message-desk" class="panel-body">
+        <div id="message-desk" class="panel-body panel-body-chat">
             <c:forEach items="${messages}" var="message">
-              <div>
-                <span>${message.user.login}: </span>
+              <div class="alert alert-info chat-message">
+                <strong>${message.user.login}: </strong>
                 <span>${message.text}</span>
               </div>
             </c:forEach>
@@ -36,22 +37,19 @@
     </div>
 
     <div class="page-container">
-        <H2 class="text-center">Add message</H2>
-        <form:form id="form-add-message" class="form-horizontal" method="post" action="messages/add" commandName="message">
 
-            <div class="form-group">
-                <label for="text" class="col-sm-2 control-label">Text</label>
-
-                <div class="col-sm-10">
-                    <form:input path="text" type="text" class="form-control" id="text" placeholder="Text"/>
-                </div>
+        <div class="form-group">
+            <div class="input-group">
             </div>
+        </div>
 
-            <form:errors class="text-danger bg-danger" path="text"></form:errors>
-
-            <input type="submit" id="btn-add-message" class="btn btn-success center-block"  value="Add message" />
-            <input type="button" id="btn-add-aaa" class="btn btn-info center-block"  value="aaa!" />
-
+        <form:form id="form-add-message" class="form-inline" method="post" action="messages/add" commandName="message">
+            <div class="input-group col-lg-12">
+                <form:input path="text" type="text" class="form-control col-lg-12" id="text" placeholder="Your message"/>
+                <span class="input-group-btn">
+                    <input type="submit" id="btn-add-message" class="btn btn-success"  value="Send message" />
+                </span>
+            </div>
         </form:form>
     </div>
 </t:template>

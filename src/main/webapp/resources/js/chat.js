@@ -1,13 +1,11 @@
 $(document).ready(function() {
     addEvents();
+    setTimeout(getNewMessages, 2000);
 });
 
 function addEvents () {
     var formAddMessage = $("#form-add-message");
     formAddMessage.submit(onSubmitForm);
-
-   var btnAddAaa = $("#btn-add-aaa");
-   btnAddAaa.click(getNewMessages);
 }
 
 
@@ -27,27 +25,37 @@ function addMessage () {
         method: "POST"
     }).success(function(data) {
         if (data == "ok") {
-            appendMessage(message.val());
-            message.val("");
+            getNewMessages();
+            message.val("").focus();
         }
     }).error(function(error) {
         console.error(error);
     });
 }
 
-function appendMessage (message) {
+function appendMessage (message, name) {
+    if (!name) {
+        name = login;
+    }
     var messageDesk = $("#message-desk");
 
-    var div = $("<div/>");
-    var spanLogin = $("<span/>");
+    var div = $("<div/>", {
+        class: "alert alert-info chat-message"
+    });
+    var spanLogin = $("<strong/>");
     var spanText = $("<span/>");
-    spanLogin.text(login + ": ");
+    spanLogin.text(name + ": ");
     spanText.text(message);
     div.append(spanLogin);
     div.append(spanText);
 
     messageDesk.append(div);
-    //console.log(message);
+}
+
+function scrollToBottom () {
+    var panel = $('.panel-body-chat');
+    var height = panel[0].scrollHeight;
+    panel.scrollTop(height);
 }
 
 function getNewMessages () {
@@ -55,13 +63,42 @@ function getNewMessages () {
         url: "messages/get/" + lastMessageTime,
         method: "GET"
     }).success(function(data) {
-        console.log(data);
-/*        if (data == "ok") {
-            appendMessage(message.val());
-            message.val("");
-        }*/
+        var len = data.length;
+        if (len > 0) {
+            for (i = 0; i < len; i++) {
+                appendMessage(data[i].text, data[i].user.login);
+            }
+            lastMessageTime = formatDate(new Date(data.pop().created), "%Y-%M-%d %H:%m:%s.%S");
+            scrollToBottom();
+        }
+        setTimeout(getNewMessages, 1000);
     }).error(function(error) {
-        console.error("ERROR:");
         console.error(error);
+    });
+}
+
+function formatDate(date, fmt) {
+    function pad(value) {
+        return (value.toString().length < 2) ? '0' + value : value;
+    }
+    return fmt.replace(/%([a-zA-Z])/g, function (_, fmtCode) {
+        switch (fmtCode) {
+            case 'Y':
+                return date.getUTCFullYear();
+            case 'M':
+                return pad(date.getUTCMonth() + 1);
+            case 'd':
+                return pad(date.getUTCDate());
+            case 'H':
+                return pad(date.getUTCHours() + 3);
+            case 'm':
+                return pad(date.getUTCMinutes());
+            case 's':
+                return pad(date.getUTCSeconds());
+            case 'S':
+                return pad(date.getUTCMilliseconds());
+            default:
+                throw new Error('Unsupported format code: ' + fmtCode);
+        }
     });
 }
