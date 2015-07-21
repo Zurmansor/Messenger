@@ -32,20 +32,18 @@
 
     <div class="page-container">
 
-            <div class="form-group">
-                <div class="input-group">
-                </div>
+        <div class="form-group">
+            <div class="input-group">
             </div>
-
-
+        </div>
 
         <form:form id="form-add-message" class="form-inline" method="post" action="messages/add" commandName="message">
-            <div class="form-group">
-                <label for="text" class=" control-label">Your message:</label>
-                <form:input path="text" type="text" class="form-control" id="text" placeholder="Text"/>
-                <%--<input type="text" class="form-control" id="exampleInputName2" placeholder="Jane Doe">--%>
+            <div class="input-group col-lg-12">
+                <form:input path="text" type="text" class="form-control col-lg-12" id="text" placeholder="Your message"/>
+                <span class="input-group-btn">
+                    <input type="submit" id="btn-add-message" class="btn btn-success"  value="Send message" />
+                </span>
             </div>
-            <input type="submit" id="btn-add-message" class="btn btn-success"  value="Add message" />
         </form:form>
     </div>
 </t:template>
