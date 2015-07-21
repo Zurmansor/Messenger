@@ -1,8 +1,9 @@
 package com.sigmaukraine.messenger.controller;
 
-//import com.google.gson.Gson;
 import com.sigmaukraine.messenger.domain.Message;
+import com.sigmaukraine.messenger.repository.ChatRepository;
 import com.sigmaukraine.messenger.repository.MessageRepository;
+import com.sigmaukraine.messenger.repository.SubjectRepository;
 import com.sigmaukraine.messenger.repository.UserRepository;
 import com.sigmaukraine.messenger.validation.MessageValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -24,15 +24,21 @@ public class MessageController {
     private MessageRepository messageRepository;
     private UserRepository userRepository;
     private MessageValidator messageValidator;
+    private ChatRepository chatRepository;
+    private SubjectRepository subjectRepository;
 
     public MessageController() {
     }
 
     @Autowired
-    public MessageController(MessageRepository messageRepository, UserRepository userRepository, MessageValidator messageValidator) {
+    public MessageController(MessageRepository messageRepository, UserRepository userRepository,
+                             MessageValidator messageValidator, ChatRepository chatRepository,
+                             SubjectRepository subjectRepository) {
         this.messageRepository = messageRepository;
         this.userRepository = userRepository;
+        this.chatRepository = chatRepository;
         this.messageValidator = messageValidator;
+        this.subjectRepository = subjectRepository;
     }
 
     @RequestMapping(value = "subjects/{subjectId}/chats/{chatId}/messages", method = RequestMethod.GET)
@@ -40,10 +46,13 @@ public class MessageController {
     public String list(Model model, @PathVariable Integer subjectId, @PathVariable Integer chatId) {
         List<Message> messages = this.messageRepository.getListMessagesByChatId(chatId);
         User userDetails = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
+        String chatName = chatRepository.getChatById(chatId).getName();
+        String subjectName = subjectRepository.getSubjectById(subjectId).getName();
         model.addAttribute("messages", messages);
         model.addAttribute("message", new Message());
         model.addAttribute("login", userDetails.getUsername());
+        model.addAttribute("chatName", chatName);
+        model.addAttribute("subjectName", subjectName);
         return "messages/list";
     }
 

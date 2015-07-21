@@ -17,8 +17,13 @@
     <script language="javascript" type="text/javascript" src="/resources/js/chat.js"></script>
 
     <div class="panel panel-default">
+            <ol class="breadcrumb">
+                <li><a href="/subjects">Subjects: ${subjectName}</a></li>
+                <li><a href="/subjects/${subjectId}/chats">Chats: ${chatName}</a></li>
+                <li class="active"><a href="#">Messages</a></li>
+            </ol>
         <div class="panel-heading">
-            <h3 class="panel-title">Helix Chat</h3>
+            <h3 class="panel-title">${chatName}</h3>
         </div>
         <div id="message-desk" class="panel-body">
             <c:forEach items="${messages}" var="message">

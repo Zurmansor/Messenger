@@ -1,8 +1,8 @@
 package com.sigmaukraine.messenger.controller;
 
 import com.sigmaukraine.messenger.domain.Chat;
-import com.sigmaukraine.messenger.domain.Subject;
 import com.sigmaukraine.messenger.repository.ChatRepository;
+import com.sigmaukraine.messenger.repository.SubjectRepository;
 import com.sigmaukraine.messenger.repository.UserRepository;
 import com.sigmaukraine.messenger.validation.ChatValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,15 +26,18 @@ public class ChatController {
     private ChatRepository chatRepository;
     private UserRepository userRepository;
     private ChatValidator chatValidator;
+    private SubjectRepository subjectRepository;
 
     public ChatController() {
     }
 
     @Autowired
-    public ChatController(ChatRepository chatRepository, UserRepository userRepository, ChatValidator chatValidator) {
+    public ChatController(ChatRepository chatRepository, UserRepository userRepository,
+                          ChatValidator chatValidator, SubjectRepository subjectRepository) {
         this.chatRepository = chatRepository;
         this.userRepository = userRepository;
         this.chatValidator = chatValidator;
+        this.subjectRepository = subjectRepository;
     }
 
     @RequestMapping(value = "/chats", method = RequestMethod.GET)
@@ -43,9 +46,11 @@ public class ChatController {
         List<Chat> chats= this.chatRepository.getListChatsBySubjectId(subjectId);
         User userDetails = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         com.sigmaukraine.messenger.domain.User user = userRepository.getUserByLogin(userDetails.getUsername());
+        String subjectName = subjectRepository.getSubjectById(subjectId).getName();
         model.addAttribute("chats", chats);
         model.addAttribute("subjectId", subjectId);
         model.addAttribute("user", user);
+        model.addAttribute("subjectName", subjectName);
         return "chats/list";
     }
 

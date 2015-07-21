@@ -5,7 +5,10 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <t:template>
-
+    <ol class="breadcrumb">
+        <li><a href="/subjects">Subjects: ${subjectName}</a></li>
+        <li class="active"><a href="#">Chats</a></li>
+    </ol>
       <H1>Chats</H1>
 
       <sec:authorize access="hasRole('admin')">

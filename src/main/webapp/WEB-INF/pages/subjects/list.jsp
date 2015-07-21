@@ -7,6 +7,10 @@
 <t:template>
 
   <div class="list-subject-container">
+      <ol class="breadcrumb">
+          <li class="active"><a href="#">Subjects</a></li>
+      </ol>
+
       <H1>Subjects</H1>
 
       <sec:authorize access="hasRole('admin')">

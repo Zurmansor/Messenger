@@ -20,6 +20,10 @@ private static Logger LOG = Logger.getLogger(SubjectRepository.class.getName());
     @Autowired
     private SessionFactory sessionFactory;
 
+    /**
+     * Returns list of all subjects
+     * @return List<Subject>
+     */
     public List<Subject> listAll() {
         if (LOG.isLoggable(Level.INFO)) {
             LOG.log(Level.INFO, "getting list of all subjects");
@@ -28,6 +32,10 @@ private static Logger LOG = Logger.getLogger(SubjectRepository.class.getName());
                 .list();
     }
 
+    /**
+     * Removes subject by id if it exist
+     * @param id
+     */
     public void removeSubject(int id) {
         Subject contact = (Subject) this.sessionFactory.getCurrentSession().get(Subject.class, id);
 
@@ -39,6 +47,10 @@ private static Logger LOG = Logger.getLogger(SubjectRepository.class.getName());
         }
     }
 
+    /**
+     * Adds subject
+     * @param subject
+     */
     public void addSubject(Subject subject) {
         this.sessionFactory.getCurrentSession().save(subject);
         if (LOG.isLoggable(Level.INFO)) {
@@ -46,6 +58,11 @@ private static Logger LOG = Logger.getLogger(SubjectRepository.class.getName());
         }
     }
 
+    /**
+     * Gets subject by name
+     * @param name
+     * @return Subject
+     */
     public Subject getSubjectByName(String name) {
         List<Subject> subjects = this.sessionFactory.getCurrentSession()
                 .createQuery("FROM Subject WHERE name=?")
@@ -57,6 +74,11 @@ private static Logger LOG = Logger.getLogger(SubjectRepository.class.getName());
         return subjects.size() > 0 ? subjects.get(0) : null;
     }
 
+    /**
+     * Gets subject by id
+     * @param id
+     * @return
+     */
     public Subject getSubjectById(int id) {
         if (LOG.isLoggable(Level.INFO)) {
             LOG.log(Level.INFO, "getting subject by id");

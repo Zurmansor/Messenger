@@ -20,6 +20,10 @@ public class MessageRepository {
     @Autowired
     private SessionFactory sessionFactory;
 
+    /**
+     * Returns list of all messages
+     * @return List<Message>
+     */
     public List<Message> listAll() {
         if (LOG.isLoggable(Level.INFO)) {
             LOG.log(Level.INFO, "getting list of all messages");
@@ -28,6 +32,10 @@ public class MessageRepository {
                 .list();
     }
 
+    /**
+     * Removes message by Id if it exist
+     * @param id
+     */
     public void removeMessage(int id) {
         Message contact = (Message) this.sessionFactory.getCurrentSession().load(Message.class, id);
 
@@ -39,6 +47,10 @@ public class MessageRepository {
         }
     }
 
+    /**
+     * Adds message
+     * @param message
+     */
     public void addMessage(Message message) {
         if (LOG.isLoggable(Level.INFO)) {
             LOG.log(Level.INFO, "adding a message");
@@ -46,7 +58,11 @@ public class MessageRepository {
         this.sessionFactory.getCurrentSession().save(message);
     }
 
-
+    /**
+     * Gets list of messages by chat's Id
+     * @param id
+     * @return List<Message>
+     */
     public List<Message> getListMessagesByChatId (int id) {
         if (LOG.isLoggable(Level.INFO)) {
             LOG.log(Level.INFO, "getting list of messages by id");
@@ -57,6 +73,12 @@ public class MessageRepository {
                 .list();
     }
 
+    /**
+     * Gets new messages
+     * @param chatId
+     * @param lastMessageTimeStamp
+     * @return List<Message>
+     */
     public List<Message> getNewMessages (int chatId, Timestamp lastMessageTimeStamp) {
         if (LOG.isLoggable(Level.INFO)) {
             LOG.log(Level.INFO, "getting new messages");

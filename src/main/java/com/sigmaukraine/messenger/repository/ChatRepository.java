@@ -19,6 +19,10 @@ public class ChatRepository {
     @Autowired
     private SessionFactory sessionFactory;
 
+    /**
+     * Returns list of all chats
+     * @return List<Chat>
+     */
     public List<Chat> listAll() {
         if (LOG.isLoggable(Level.INFO)) {
             LOG.log(Level.INFO, "getting list of all chats");
@@ -27,6 +31,10 @@ public class ChatRepository {
                 .list();
     }
 
+    /**
+     * Removes chat by Id if it exist
+     * @param id
+     */
     public void removeChat(int id) {
         Chat contact = (Chat) this.sessionFactory.getCurrentSession().load(Chat.class, id);
 
@@ -38,6 +46,10 @@ public class ChatRepository {
         }
     }
 
+    /**
+     * Adds chat
+     * @param chat
+     */
     public void addChat(Chat chat) {
         this.sessionFactory.getCurrentSession().save(chat);
         if (LOG.isLoggable(Level.INFO)) {
@@ -45,6 +57,11 @@ public class ChatRepository {
         }
     }
 
+    /**
+     * Gets list of chats by subject's Id
+     * @param id
+     * @return List<Chat>
+     */
     public List<Chat> getListChatsBySubjectId (int id) {
         if (LOG.isLoggable(Level.INFO)) {
             LOG.log(Level.INFO, "getting list of chats by subject's id");
@@ -56,7 +73,12 @@ public class ChatRepository {
     }
 
 
-
+    /**
+     * Checks chat for unique
+     * @param name
+     * @param checkSubjectId
+     * @return boolean
+     */
     public boolean isUnique(String name, int checkSubjectId) {
         List<Chat> chats = this.sessionFactory.getCurrentSession()
                 .createQuery("FROM Chat WHERE name=? AND subjectId=?")
@@ -69,6 +91,11 @@ public class ChatRepository {
         return chats.size() == 0;
     }
 
+    /**
+     * Gets chat by Id
+     * @param id
+     * @return Chat
+     */
     public Chat getChatById(int id) {
         if (LOG.isLoggable(Level.INFO)) {
             LOG.log(Level.INFO, "getting chat by id");
@@ -76,7 +103,12 @@ public class ChatRepository {
         return (Chat) this.sessionFactory.getCurrentSession().get(Chat.class, id);
     }
 
-    public void editChat(int chatId,Chat updatedChat) {
+    /**
+     * Edits chat by Id.
+     * @param chatId
+     * @param updatedChat
+     */
+    public void editChat(int chatId, Chat updatedChat) {
         Session session = sessionFactory.openSession();
         Chat chat = getChatById(chatId);
             chat.setName(updatedChat.getName());
