@@ -18,7 +18,7 @@
 
     <div class="panel panel-primary">
         <div class="panel-heading">
-            <h3 class="panel-title">Messages</h3>
+            <h3 class="panel-title">Helix Chat</h3>
         </div>
         <div id="message-desk" class="panel-body panel-body-chat">
             <c:forEach items="${messages}" var="message">

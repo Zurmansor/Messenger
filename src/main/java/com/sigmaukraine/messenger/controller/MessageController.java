@@ -1,13 +1,11 @@
 package com.sigmaukraine.messenger.controller;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+//import com.google.gson.Gson;
 import com.sigmaukraine.messenger.domain.Message;
 import com.sigmaukraine.messenger.repository.MessageRepository;
 import com.sigmaukraine.messenger.repository.UserRepository;
 import com.sigmaukraine.messenger.validation.MessageValidator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
@@ -74,14 +72,11 @@ public class MessageController {
             produces = "application/json; charset=utf-8")
     @ResponseBody
     @PreAuthorize("isAuthenticated()")
-    public String get(Model model, @PathVariable Integer subjectId, @PathVariable Integer chatId, @PathVariable String lastMessageTime) {
-        Timestamp lastMessageTimeStamp = Timestamp.valueOf(lastMessageTime);
+    public List<Message> get(Model model, @PathVariable Integer subjectId, @PathVariable Integer chatId, @PathVariable String lastMessageTime) {
 
+        Timestamp lastMessageTimeStamp = Timestamp.valueOf(lastMessageTime);
         List<Message> newMessages = messageRepository.getNewMessages(chatId, lastMessageTimeStamp);
-        Gson gson = new GsonBuilder()
-                .setDateFormat("yyyy-MM-dd HH:mm:ss.S")
-                .create();
-        return gson.toJson(newMessages);
+        return newMessages;
     }
 
 /*    @RequestMapping(value = "/messages/remove/{id}", method = RequestMethod.GET)

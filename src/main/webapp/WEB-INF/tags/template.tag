@@ -39,7 +39,10 @@
                 </sec:authorize>
 
                 <li><a href="/users"><spring:message code="nav.users"/></a></li>
-                <li><a href="#">Link</a></li>
+
+                <sec:authorize access="isAuthenticated()">
+                    <li><a href="/statistics">Statistic</a></li>
+                </sec:authorize>
             </ul>
             <ul class="nav navbar-nav navbar-right">
             <%--    <p class="navbar-text">--%>

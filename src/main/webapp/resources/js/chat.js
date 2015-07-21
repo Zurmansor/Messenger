@@ -74,6 +74,7 @@ function getNewMessages () {
         }
         setTimeout(getNewMessages, 1000);
     }).error(function(error) {
+        console.error("ERROR:");
         console.error(error);
     });
 }
