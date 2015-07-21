@@ -1,6 +1,5 @@
 package com.sigmaukraine.messenger.controller;
 
-//import com.google.gson.Gson;
 import com.sigmaukraine.messenger.domain.Message;
 import com.sigmaukraine.messenger.repository.MessageRepository;
 import com.sigmaukraine.messenger.repository.UserRepository;

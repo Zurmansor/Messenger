@@ -68,13 +68,37 @@ function getNewMessages () {
             for (i = 0; i < len; i++) {
                 appendMessage(data[i].text, data[i].user.login);
             }
-            lastMessageTime = data.pop().created;
-            console.log(lastMessageTime);
+            lastMessageTime = formatDate(new Date(data.pop().created), "%Y-%M-%d %H:%m:%s.%S");
             scrollToBottom();
         }
         setTimeout(getNewMessages, 1000);
     }).error(function(error) {
-        console.error("ERROR:");
         console.error(error);
+    });
+}
+
+function formatDate(date, fmt) {
+    function pad(value) {
+        return (value.toString().length < 2) ? '0' + value : value;
+    }
+    return fmt.replace(/%([a-zA-Z])/g, function (_, fmtCode) {
+        switch (fmtCode) {
+            case 'Y':
+                return date.getUTCFullYear();
+            case 'M':
+                return pad(date.getUTCMonth() + 1);
+            case 'd':
+                return pad(date.getUTCDate());
+            case 'H':
+                return pad(date.getUTCHours() + 3);
+            case 'm':
+                return pad(date.getUTCMinutes());
+            case 's':
+                return pad(date.getUTCSeconds());
+            case 'S':
+                return pad(date.getUTCMilliseconds());
+            default:
+                throw new Error('Unsupported format code: ' + fmtCode);
+        }
     });
 }
