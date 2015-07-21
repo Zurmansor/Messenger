@@ -61,6 +61,7 @@ function getNewMessages () {
             message.val("");
         }*/
     }).error(function(error) {
+        console.error("ERROR:");
         console.error(error);
     });
 }

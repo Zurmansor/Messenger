@@ -1,12 +1,11 @@
 package com.sigmaukraine.messenger.controller;
 
-import com.google.gson.Gson;
+//import com.google.gson.Gson;
 import com.sigmaukraine.messenger.domain.Message;
 import com.sigmaukraine.messenger.repository.MessageRepository;
 import com.sigmaukraine.messenger.repository.UserRepository;
 import com.sigmaukraine.messenger.validation.MessageValidator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
@@ -73,16 +72,11 @@ public class MessageController {
             produces = "application/json; charset=utf-8")
     @ResponseBody
     @PreAuthorize("isAuthenticated()")
-    public String get(Model model, @PathVariable Integer subjectId, @PathVariable Integer chatId, @PathVariable String lastMessageTime) {
+    public List<Message> get(Model model, @PathVariable Integer subjectId, @PathVariable Integer chatId, @PathVariable String lastMessageTime) {
 
         Timestamp lastMessageTimeStamp = Timestamp.valueOf(lastMessageTime);
-        System.out.println("Hello jerk!");
-        System.out.println(lastMessageTimeStamp);
-
         List<Message> newMessages = messageRepository.getNewMessages(chatId, lastMessageTimeStamp);
-
-        Gson gson = new Gson();
-        return gson.toJson(newMessages);
+        return newMessages;
     }
 
 /*    @RequestMapping(value = "/messages/remove/{id}", method = RequestMethod.GET)
