@@ -47,10 +47,17 @@
             <ul class="nav navbar-nav navbar-right">
             <%--    <p class="navbar-text">--%>
                 <li>
-                    <sec:authorize access="isAnonymous()">
-                        <a href="registration" st>Registration</a>
-                    </sec:authorize>
+                    <div class="languages-nav">
+                        <a href="?lang=en">en</a>
+                        |
+                        <a href="?lang=ru">ru</a>
+                    </div>
                 </li>
+                <sec:authorize access="isAnonymous()">
+                    <li>
+                        <a href="registration">Registration</a>
+                    </li>
+                </sec:authorize>
                 <li>
 
                     <sec:authorize access="isAnonymous()">
@@ -59,19 +66,9 @@
                     <sec:authorize access="isAuthenticated()">
                         <a href="/j_spring_security_logout">Sign Out</a>
                     </sec:authorize>
-                    <%--</p>--%>
                 </li>
 
             </ul>
-           <%-- <p class="navbar-text navbar-right">
-                <sec:authorize access="isAnonymous()">
-                    <a href="/login">Sign In</a>
-                </sec:authorize>
-                <sec:authorize access="isAuthenticated()">
-                    <a href="/j_spring_security_logout">Sign Out</a>
-                </sec:authorize>
-            </p>--%>
-
         </nav>
     </div>
 </nav>
