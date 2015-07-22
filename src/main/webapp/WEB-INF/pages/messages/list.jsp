@@ -3,6 +3,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 
 <t:template>
@@ -17,9 +18,9 @@
     <script language="javascript" type="text/javascript" src="/resources/js/chat.js"></script>
 
     <ol class="breadcrumb">
-        <li><a href="/subjects">Subjects: ${subjectName}</a></li>
-        <li><a href="/subjects/${subjectId}/chats">Chats: ${chatName}</a></li>
-        <li class="active"><a href="#">Messages</a></li>
+        <li><a href="/subjects"><spring:message code="subject.subject"/>: ${subjectName}</a></li>
+        <li><a href="/subjects/${subjectId}/chats"><spring:message code="chat.chat"/>: ${chatName}</a></li>
+        <li class="active"><a href="#"><spring:message code="message.message"/></a></li>
     </ol>
 
     <div class="panel panel-primary">
@@ -45,9 +46,11 @@
 
         <form:form id="form-add-message" class="form-inline" method="post" action="messages/add" commandName="message">
             <div class="input-group col-lg-12">
-                <form:input path="text" type="text" class="form-control col-lg-12" id="text" placeholder="Your message"/>
+                <spring:message code="message.your_message" var="your_message"/>
+                <form:input path="text" type="text" class="form-control col-lg-12" id="text" placeholder="${your_message}"/>
                 <span class="input-group-btn">
-                    <input type="submit" id="btn-add-message" class="btn btn-success"  value="Send message" />
+                    <spring:message code="message.send_message_btn" var="send_message"/>
+                    <input type="submit" id="btn-add-message" class="btn btn-success"  value="${send_message}" />
                 </span>
             </div>
         </form:form>

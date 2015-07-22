@@ -11,13 +11,13 @@
     </script>
 
     <ol class="breadcrumb">
-        <li><a href="/subjects">Subjects: ${subjectName}</a></li>
-        <li class="active"><a href="#">Chats</a></li>
+        <li><a href="/subjects"><spring:message code="subject.subject"/>: ${subjectName}</a></li>
+        <li class="active"><a href="#"><spring:message code="title.chats"/></a></li>
     </ol>
-      <H1>Chats</H1>
+      <H1><spring:message code="title.chats"/></H1>
 
       <sec:authorize access="isAuthenticated()">
-        <p><a href="chats/add" class="btn btn-success">Add a Chat</a></p>
+        <p><a href="chats/add" class="btn btn-success"><spring:message code="chat.add_chat"/></a></p>
       </sec:authorize>
 
     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
@@ -33,12 +33,12 @@
                                        aria-expanded="true" aria-controls="description-${chat.id}"><small><i class="text-info">description</i></small></a>
                                 </c:if>
                                 <sec:authorize access="hasRole('admin')">
-                                    <a href="/subjects/${subjectId}/chats/edit/${chat.id}" class="btn btn-default btn-xs">Edit</a>
+                                    <a href="/subjects/${subjectId}/chats/edit/${chat.id}" class="btn btn-default btn-xs"><spring:message code="options.edit"/></a>
                                     <a href="/subjects/${subjectId}/chats/remove/${chat.id}" class="btn btn-default btn-xs delete-btn">Delete</a>
                                 </sec:authorize>
                                 <sec:authorize access="hasRole('user')">
                                     <c:if test="${user.id eq chat.createdBy}">
-                                        <a href="/subjects/${subjectId}/chats/edit/${chat.id}" class="btn btn-default btn-xs">Edit</a>
+                                        <a href="/subjects/${subjectId}/chats/edit/${chat.id}" class="btn btn-default btn-xs"><spring:message code="options.edit"/></a>
                                         <a href="/subjects/${subjectId}/chats/remove/${chat.id}" class="btn btn-default btn-xs delete-btn">Delete</a>
                                     </c:if>
                                 </sec:authorize>

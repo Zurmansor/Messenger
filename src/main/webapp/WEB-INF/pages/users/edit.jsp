@@ -1,5 +1,6 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <t:template>
@@ -20,7 +21,8 @@
       <div class="form-group">
           <label for="firstName" class="col-sm-2 control-label">First name</label>
           <div class="col-sm-10">
-              <form:input path="firstName" type="text" class="form-control" id="firstName" placeholder="First name"/>
+              <spring:message code="registration.first_name" var="first_name"/>
+              <form:input path="firstName" type="text" class="form-control" id="firstName" placeholder="${first_name}"/>
           </div>
       </div>
 
@@ -62,7 +64,8 @@
 
     <form:errors  class="text-danger bg-danger" path="comment"></form:errors>
 
-    <input type="submit" class="btn btn-success center-block"  value="Edit user" />
+      <spring:message code="options.edit" var="edit"/>
+    <input type="submit" class="btn btn-success center-block"  value="${edit}" />
 
 </div>
   </form:form>

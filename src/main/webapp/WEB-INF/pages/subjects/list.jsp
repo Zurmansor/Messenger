@@ -10,12 +10,12 @@
         tr.object = "<spring:message code="js.subject"/>"
     </script>
   <div class="list-subject-container">
-      <H1>Subjects</H1>
+      <H1><spring:message code="title.subjects"/></H1>
 
       <sec:authorize access="hasRole('admin')">
           <p>
               <a href="/subjects/add" class="btn btn-success">
-                  Add a subject
+                  <spring:message code="subject.add_subject"/>
               </a>
           </p>
       </sec:authorize>
@@ -34,8 +34,8 @@
                                        aria-expanded="true" aria-controls="description-${subject.id}"><small><i class="text-info">description</i></small></a>
                                 </c:if>
                                 <sec:authorize access="hasRole('admin')">
-                                    <a href="/subjects/edit/${subject.id}" class="btn btn-default btn-xs">Edit</a>
-                                    <a href="/subjects/remove/${subject.id}" class="btn btn-default btn-xs delete-btn">Delete</a>
+                                    <a href="/subjects/edit/${subject.id}" class="btn btn-default btn-xs"><spring:message code="options.edit"/></a>
+                                    <a href="/subjects/remove/${subject.id}" class="btn btn-default btn-xs delete-btn"><spring:message code="options.delete"/></a>
                                 </sec:authorize>
                             </div>
                         </a>

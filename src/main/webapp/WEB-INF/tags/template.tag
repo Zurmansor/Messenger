@@ -70,10 +70,10 @@
                 <li>
 
                     <sec:authorize access="isAnonymous()">
-                        <a href="/login"><spring:message code="nav.signIn"/></a>
+                        <a href="/login"><spring:message code="nav.sign_in"/></a>
                     </sec:authorize>
                     <sec:authorize access="isAuthenticated()">
-                        <a href="/j_spring_security_logout"><spring:message code="nav.signOut"/></a>
+                        <a href="/j_spring_security_logout"><spring:message code="nav.sign_out"/></a>
                     </sec:authorize>
                 </li>
 
