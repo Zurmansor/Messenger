@@ -20,6 +20,10 @@ public class UserRepository {
     @Autowired
     private SessionFactory sessionFactory;
 
+    /**
+     * Adds a user
+     * @param user
+     */
     public void addUser(User user) {
         this.sessionFactory.getCurrentSession().save(user);
     }
@@ -44,6 +48,10 @@ public class UserRepository {
         return users.size() > 0 ? users.get(0) : null;
     }*/
 
+    /**
+     * Returns list of all users
+     * @return List<User>
+     */
     public List<User> listAll() {
         if (LOG.isLoggable(Level.INFO)) {
             LOG.log(Level.INFO, "getting list of all users");
@@ -52,6 +60,10 @@ public class UserRepository {
                 .list();
     }
 
+    /**
+     * Removes user by Id
+     * @param id
+     */
     public void removeUser(int id) {
         User contact = (User) this.sessionFactory.getCurrentSession().load(User.class, id);
         if (null != contact) {
@@ -62,7 +74,11 @@ public class UserRepository {
         }
     }
 
-
+    /**
+     * Gets user by Id
+     * @param id
+     * @return User
+     */
     public User getUserById(int id) {
         if (LOG.isLoggable(Level.INFO)) {
             LOG.log(Level.INFO, "getting user by id");
@@ -70,6 +86,11 @@ public class UserRepository {
         return (User) this.sessionFactory.getCurrentSession().get(User.class, id);
     }
 
+    /**
+     * Edits user bu Id
+     * @param userId
+     * @param updatedUser
+     */
     public void editUser(int userId ,User updatedUser) {
         Session session = sessionFactory.openSession();
 //        Transaction tr = (Transaction) session.beginTransaction();

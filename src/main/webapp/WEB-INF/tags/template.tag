@@ -35,13 +35,13 @@
 
             <ul class="nav navbar-nav">
                 <sec:authorize access="isAuthenticated()">
-                    <li><a href="/subjects">Subjects list</a></li>
+                    <li><a href="/subjects"><spring:message code="nav.subjects"/></a></li>
                 </sec:authorize>
 
                 <li><a href="/users"><spring:message code="nav.users"/></a></li>
 
                 <sec:authorize access="isAuthenticated()">
-                    <li><a href="/statistic">Statistic</a></li>
+                    <li><a href="/statistic"><spring:message code="nav.statistic"/></a></li>
                 </sec:authorize>
             </ul>
             <ul class="nav navbar-nav navbar-right">
@@ -55,7 +55,7 @@
                 </li>
                 <sec:authorize access="isAnonymous()">
                     <li>
-                        <a href="registration">Registration</a>
+                        <a href="registration"><%--<spring:message code="nav.registration"/>--%></a>
                     </li>
                 </sec:authorize>
                 <li>

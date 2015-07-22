@@ -86,6 +86,12 @@ private static Logger LOG = Logger.getLogger(SubjectRepository.class.getName());
         return (Subject) this.sessionFactory.getCurrentSession().get(Subject.class, id);
     }
 
+    /**
+     * Edits subject by Id
+     * @param subjectId
+     * @param updatedSubject
+     */
+
     public void editSubject(int subjectId ,Subject updatedSubject) {
         Session session = sessionFactory.openSession();
         Subject subject = getSubjectById(subjectId);

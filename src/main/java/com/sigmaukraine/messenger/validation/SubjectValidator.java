@@ -14,6 +14,13 @@ public class SubjectValidator implements Validator{
         return Subject.class.isAssignableFrom(aClass);
     }
 
+    /**
+     * Validates subject. Name can not be less then 2 symbols
+     * Name can not be more then 45 symbols.
+     * Description can not be more then 500 symbols.
+     * @param o
+     * @param errors
+     */
     @Override
     public void validate(Object o, Errors errors) {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "required.name", "Name is required.");

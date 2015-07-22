@@ -14,6 +14,11 @@ public class MessageValidator implements Validator{
         return Message.class.isAssignableFrom(aClass);
     }
 
+    /**
+     * Validates message for required text
+     * @param o
+     * @param errors
+     */
     @Override
     public void validate(Object o, Errors errors) {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "text", "required.text", "Text is required.");

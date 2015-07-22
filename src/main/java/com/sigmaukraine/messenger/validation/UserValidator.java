@@ -14,10 +14,16 @@ public class UserValidator implements Validator{
         return User.class.isAssignableFrom(aClass);
     }
 
+    /**
+     * Validates user's data. Login is required. Login can not be more then 20 symbols.
+     * FirstName can not be more then 30 symbols. LastName can not be more then 30 symbols.
+     * Email can not be more then 45 symbols.
+     * @param o
+     * @param errors
+     */
     @Override
     public void validate(Object o, Errors errors) {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "login", "required.login", "Login is required.");
-//        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "confirmPassword", "required.confirmPassword", "Confirm password is required.");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "firstName", "required.firstName", "First name is required.");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "lastName", "required.lastName", "Last name is required.");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "required.email", "Email is required.");
@@ -42,6 +48,13 @@ public class UserValidator implements Validator{
         }
     }
 
+    /**
+     * Validates user's password.
+     * Password can not be less then 4 symbols. Password can not be more then 20 symbols.
+     * Password and confirm password should be same.
+     * @param o
+     * @param errors
+     */
     public void validatePasswords(Object o, Errors errors) {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "required.password", "Password is required.");
         User user = (User) o;

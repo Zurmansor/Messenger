@@ -14,6 +14,11 @@ public class ChatValidator implements Validator{
         return Chat.class.isAssignableFrom(aClass);
     }
 
+    /**
+     * Validates chat for required name
+     * @param o
+     * @param errors
+     */
     @Override
     public void validate(Object o, Errors errors) {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "required.name", "Name is required.");
