@@ -1,5 +1,6 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <t:template>
@@ -7,26 +8,28 @@
 
   <form:form class="form-horizontal" method="post" action="" commandName="chat" accept-charset="UTF-8">
 
-    <H2 class="text-center">Edit chat</H2>
+    <H2 class="text-center"><spring:message code="title.edit_chat"/></H2>
       <div class="form-group">
-          <label for="name" class="col-sm-2 control-label">Name</label>
+          <label for="name" class="col-sm-2 control-label"><spring:message code="edit.name"/></label>
           <div class="col-sm-10">
-              <form:input path="name" type="text" class="form-control" id="name" placeholder="Name"/>
+              <spring:message code="edit.name" var="name"/>
+              <form:input path="name" type="text" class="form-control" id="name" placeholder="${name}"/>
           </div>
       </div>
 
       <form:errors class="text-danger bg-danger" path="name"></form:errors>
 
       <div class="form-group">
-          <label for="description" class="col-sm-2 control-label">Description</label>
+          <label for="description" class="col-sm-2 control-label"><spring:message code="edit.description"/></label>
           <div class="col-sm-10">
-              <form:input path="description" type="text" class="form-control" id="description" placeholder="Description"/>
+              <spring:message code="edit.description" var="description"/>
+              <form:input path="description" type="text" class="form-control" id="description" placeholder="${description}"/>
           </div>
       </div>
 
       <form:errors class="text-danger bg-danger" path="description"></form:errors>
-
-    <input type="submit" class="btn btn-success center-block"  value="Edit chat" />
+      <spring:message code="edit.edit_btn" var="edit_btn"/>
+    <input type="submit" class="btn btn-success center-block"  value="${edit_btn}" />
 
 </div>
   </form:form>

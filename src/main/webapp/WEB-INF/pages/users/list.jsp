@@ -3,15 +3,16 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <t:template>
 
-  <H1>Users</H1>
+  <H1><spring:message code="title.users"/></H1>
   <div class="list-subject-container">
     <sec:authorize access="hasRole('admin')">
       <p>
         <a href="/registration" class="btn btn-success">
-          Add user
+          <spring:message code="user.add_user"/>
         </a>
       </p>
     </sec:authorize>
@@ -26,8 +27,8 @@
                 <%--              <a href="/subjects/${user.id}/chats"> ${subject.name} </a>--%>
                 ${user.login}
               <sec:authorize access="hasRole('admin')">
-                <a href="/users/edit/${user.id}" class="btn btn-info btn-xs pull-right">Edit</a>
-                <a href="/users/remove/${user.id}" class="btn btn-danger btn-xs pull-right">Delete</a>
+                <a href="/users/edit/${user.id}" class="btn btn-info btn-xs pull-right"><spring:message code="options.edit"/></a>
+                <a href="/users/remove/${user.id}" class="btn btn-danger btn-xs pull-right"><spring:message code="options.delete"/></a>
               </sec:authorize>
             </a>
           </h4>

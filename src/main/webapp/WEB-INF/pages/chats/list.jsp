@@ -3,16 +3,17 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <t:template>
     <ol class="breadcrumb">
-        <li><a href="/subjects">Subjects: ${subjectName}</a></li>
-        <li class="active"><a href="#">Chats</a></li>
+        <li><a href="/subjects"><spring:message code="subject.subject"/>: ${subjectName}</a></li>
+        <li class="active"><a href="#"><spring:message code="title.chats"/></a></li>
     </ol>
-      <H1>Chats</H1>
+      <H1><spring:message code="title.chats"/></H1>
 
       <sec:authorize access="isAuthenticated()">
-        <p><a href="chats/add" class="btn btn-success">Add a Chat</a></p>
+        <p><a href="chats/add" class="btn btn-success"><spring:message code="chat.add_chat"/></a></p>
       </sec:authorize>
 
     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
@@ -23,7 +24,7 @@
                         <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#description-${chat.id}" aria-expanded="false" aria-controls="description-${chat.id}">
                             <a href="/subjects/${subjectId}/chats/${chat.id}/messages"> ${chat.name} </a>
                             <sec:authorize access="hasRole('admin')">
-                                <a href="/subjects/${subjectId}/chats/${chat.id}/edit/${chat.id}" class="btn btn-info btn-xs pull-right">Edit</a>
+                                <a href="/subjects/${subjectId}/chats/${chat.id}/edit/${chat.id}" class="btn btn-info btn-xs pull-right"><spring:message code="options.edit"/></a>
                             </sec:authorize>
                         </a>
                     </h4>
