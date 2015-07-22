@@ -20,6 +20,14 @@
     <script src="/resources/bootstrap/js/transition.js"></script>
     <script src="/resources/bootstrap/js/collapse.js"></script>
     <script src="/resources/bootstrap/js/bootstrap.min.js"></script>
+
+    <script language="javascript" type="text/javascript">
+        var tr = {
+            youAreGoing: "<spring:message code="js.youAreGoingToDelete"/>",
+            areYouSure: "<spring:message code="js.areYouSure"/>"
+        }
+    </script>
+    <script language="javascript" type="text/javascript" src="/resources/js/main.js"></script>
 </head>
 <body>
 
@@ -75,6 +83,13 @@
 </nav>
 
 <div class="content" style="width:77%;margin:0 auto;">
+    <c:if test="${not empty breadcrumbs}">
+        <ol class="breadcrumb">
+            <c:forEach items="${breadcrumbs}" var="breadcrumb">
+              <li><a href="${breadcrumb.value}"><spring:message code="${breadcrumb.key}"/></a></li>
+            </c:forEach>
+        </ol>
+    </c:if>
     <jsp:doBody/>
 </div>
 </body>

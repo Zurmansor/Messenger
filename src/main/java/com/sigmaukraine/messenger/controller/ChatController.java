@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import java.util.List;
 
 @Controller
-@RequestMapping(value = "/subjects/{subjectId}")
+@RequestMapping(value = "/subjects/{subjectId}/chats")
 public class ChatController {
 
     private ChatRepository chatRepository;
@@ -40,7 +40,7 @@ public class ChatController {
         this.subjectRepository = subjectRepository;
     }
 
-    @RequestMapping(value = "/chats", method = RequestMethod.GET)
+    @RequestMapping(value = "", method = RequestMethod.GET)
     @PreAuthorize("isAuthenticated()")
     public String list(Model model, @PathVariable Integer subjectId) {
         List<Chat> chats= this.chatRepository.getListChatsBySubjectId(subjectId);
@@ -54,7 +54,7 @@ public class ChatController {
         return "chats/list";
     }
 
-    @RequestMapping(value = "/chats/add", method = RequestMethod.GET)
+    @RequestMapping(value = "/add", method = RequestMethod.GET)
     @PreAuthorize("isAuthenticated()")
     public String addChat(Model model) {
         model.addAttribute("chat", new Chat());
@@ -62,7 +62,7 @@ public class ChatController {
         return "chats/add";
     }
 
-    @RequestMapping(value = "/chats/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
     @PreAuthorize("isAuthenticated()")
     public String addChat(@ModelAttribute("chat") Chat chat, BindingResult bindingResult, @PathVariable Integer subjectId) {
         this.chatValidator.validate(chat, bindingResult);
@@ -86,20 +86,25 @@ public class ChatController {
         return "redirect:/subjects/"+ subjectId +"/chats";
     }
 
-    @RequestMapping(value = "/chats/{chatId}/edit/{id}", method = RequestMethod.GET)
-    @PreAuthorize("hasRole('admin')")
+    @RequestMapping(value = "/edit/{chatId}", method = RequestMethod.GET)
+    @PreAuthorize("isAuthenticated()")
     public String editChat(@PathVariable Integer subjectId, @PathVariable Integer chatId, Model model) {
-        Chat chat = this.chatRepository.getChatById(chatId);
-        if (chat == null) {
+        if (!canEdit(chatId)) {
             return "redirect:/subjects/"+ subjectId +"/chats";
         }
+
+        Chat chat = chatRepository.getChatById(chatId);
         model.addAttribute("chat", chat);
         return "chats/edit";
     }
 
-    @RequestMapping(value = "/chats/{chatId}/edit/{id}", method = RequestMethod.POST)
-    @PreAuthorize("hasRole('admin')")
+    @RequestMapping(value = "/edit/{chatId}", method = RequestMethod.POST)
+    @PreAuthorize("isAuthenticated()")
     public String editChat(@PathVariable Integer subjectId, @PathVariable Integer chatId, @ModelAttribute("chat") Chat chat, BindingResult bindingResult) {
+        if (!canEdit(chatId)) {
+            return "redirect:/subjects/"+ subjectId +"/chats";
+        }
+
         this.chatValidator.validate(chat, bindingResult);
 
         if (bindingResult.hasErrors()) {
@@ -111,13 +116,22 @@ public class ChatController {
             return "chats/add";
         }
         this.chatRepository.editChat(chatId, chat);
-        return "redirect:/subjects/"+ subjectId +"/chats";
+        return "redirect:/subjects/"+ subjectId + "/chats";
     }
 
-/*    @RequestMapping(value = "/chats/remove/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/remove/{chatId}", method = RequestMethod.GET)
     @PreAuthorize("isAuthenticated()")
-    public String removeChat(@PathVariable Integer id){
-        this.chatRepository.removeChat(id);
-        return "redirect:/chats";
-    }*/
+    public String removeChat(@PathVariable Integer subjectId, @PathVariable Integer chatId){
+        if (canEdit(chatId)) {
+            this.chatRepository.removeChat(chatId);
+        }
+        return "redirect:/subjects/"+ subjectId + "/chats";
+    }
+
+    private boolean canEdit (Integer chatId) {
+        User userDetails = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        com.sigmaukraine.messenger.domain.User user = userRepository.getUserByLogin(userDetails.getUsername());
+        Chat checkChat = chatRepository.getChatById(chatId);
+        return checkChat.getCreatedBy().equals(user.getId()) || userDetails.getAuthorities().contains("admin");
+    }
 }

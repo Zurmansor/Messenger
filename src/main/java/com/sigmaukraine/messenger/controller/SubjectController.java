@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Controller
@@ -39,13 +40,22 @@ public class SubjectController {
     @PreAuthorize("isAuthenticated()")
     public String list(Model model) {
         List<Subject> subjects = this.subjectRepository.listAll();
+        HashMap<String, String> breadcrumbs = new HashMap<String, String>();
+        breadcrumbs.put("nav.subjects", "#");
+
         model.addAttribute("subjects", subjects);
+        model.addAttribute("breadcrumbs", breadcrumbs);
         return "subjects/list";
     }
 
     @RequestMapping(value = "/subjects/add", method = RequestMethod.GET)
     @PreAuthorize("hasRole('admin')")
     public String addSubject(Model model) {
+        HashMap<String, String> breadcrumbs = new HashMap<String, String>();
+        breadcrumbs.put("nav.subjects", "/subjects");
+//        breadcrumbs.put("add", "#");
+
+        model.addAttribute("breadcrumbs", breadcrumbs);
         model.addAttribute("subject", new Subject());
 
         return "subjects/add";
