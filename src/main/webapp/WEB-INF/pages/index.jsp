@@ -9,6 +9,4 @@
         --> <spring:message code="label.title"/>
     </h2>
 
-
-
 </t:template>

@@ -11,7 +11,7 @@
     </ol>
       <H1>Chats</H1>
 
-      <sec:authorize access="hasRole('admin')">
+      <sec:authorize access="isAuthenticated()">
         <p><a href="chats/add" class="btn btn-success">Add a Chat</a></p>
       </sec:authorize>
 

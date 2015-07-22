@@ -38,14 +38,15 @@
                     <li><a href="/subjects"><spring:message code="nav.subjects"/></a></li>
                 </sec:authorize>
 
-                <li><a href="/users"><spring:message code="nav.users"/></a></li>
+                <sec:authorize access="hasRole('admin')">
+                    <li><a href="/users"><spring:message code="nav.users"/></a></li>
+                </sec:authorize>
 
                 <sec:authorize access="isAuthenticated()">
                     <li><a href="/statistic"><spring:message code="nav.statistic"/></a></li>
                 </sec:authorize>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-            <%--    <p class="navbar-text">--%>
                 <li>
                     <div class="languages-nav">
                         <a href="?lang=en">en</a>
@@ -55,16 +56,16 @@
                 </li>
                 <sec:authorize access="isAnonymous()">
                     <li>
-                        <a href="registration"><%--<spring:message code="nav.registration"/>--%></a>
+                        <a href="registration"><spring:message code="nav.registration"/></a>
                     </li>
                 </sec:authorize>
                 <li>
 
                     <sec:authorize access="isAnonymous()">
-                        <a href="/login">Sign In</a>
+                        <a href="/login"><spring:message code="nav.signIn"/></a>
                     </sec:authorize>
                     <sec:authorize access="isAuthenticated()">
-                        <a href="/j_spring_security_logout">Sign Out</a>
+                        <a href="/j_spring_security_logout"><spring:message code="nav.signOut"/></a>
                     </sec:authorize>
                 </li>
 
