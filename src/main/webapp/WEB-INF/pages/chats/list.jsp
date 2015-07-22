@@ -34,12 +34,12 @@
                                 </c:if>
                                 <sec:authorize access="hasRole('admin')">
                                     <a href="/subjects/${subjectId}/chats/edit/${chat.id}" class="btn btn-default btn-xs"><spring:message code="options.edit"/></a>
-                                    <a href="/subjects/${subjectId}/chats/remove/${chat.id}" class="btn btn-default btn-xs delete-btn">Delete</a>
+                                    <a href="/subjects/${subjectId}/chats/remove/${chat.id}" class="btn btn-default btn-xs delete-btn"><spring:message code="options.delete"/></a>
                                 </sec:authorize>
                                 <sec:authorize access="hasRole('user')">
                                     <c:if test="${user.id eq chat.createdBy}">
                                         <a href="/subjects/${subjectId}/chats/edit/${chat.id}" class="btn btn-default btn-xs"><spring:message code="options.edit"/></a>
-                                        <a href="/subjects/${subjectId}/chats/remove/${chat.id}" class="btn btn-default btn-xs delete-btn">Delete</a>
+                                        <a href="/subjects/${subjectId}/chats/remove/${chat.id}" class="btn btn-default btn-xs delete-btn"><spring:message code="options.delete"/></a>
                                     </c:if>
                                 </sec:authorize>
                             </div>

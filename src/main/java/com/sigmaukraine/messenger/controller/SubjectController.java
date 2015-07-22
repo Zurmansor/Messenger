@@ -41,7 +41,7 @@ public class SubjectController {
     public String list(Model model) {
         List<Subject> subjects = this.subjectRepository.listAll();
         HashMap<String, String> breadcrumbs = new HashMap<String, String>();
-        breadcrumbs.put("nav.subjects", "#");
+        breadcrumbs.put("title.subjects", "#");
 
         model.addAttribute("subjects", subjects);
         model.addAttribute("breadcrumbs", breadcrumbs);
@@ -52,8 +52,8 @@ public class SubjectController {
     @PreAuthorize("hasRole('admin')")
     public String addSubject(Model model) {
         HashMap<String, String> breadcrumbs = new HashMap<String, String>();
-        breadcrumbs.put("nav.subjects", "/subjects");
-//        breadcrumbs.put("add", "#");
+        breadcrumbs.put("title.add_subject", "#");
+        breadcrumbs.put("title.subjects", "/subjects");
 
         model.addAttribute("breadcrumbs", breadcrumbs);
         model.addAttribute("subject", new Subject());
@@ -96,7 +96,13 @@ public class SubjectController {
         if (subject == null) {
             return "redirect:/subjects";
         }
+
+        HashMap<String, String> breadcrumbs = new HashMap<String, String>();
+        breadcrumbs.put("title.edit_subject", "#");
+        breadcrumbs.put("title.subjects", "/subjects");
+
         model.addAttribute("subject", subject);
+        model.addAttribute("breadcrumbs", breadcrumbs);
         return "subjects/edit";
     }
 
