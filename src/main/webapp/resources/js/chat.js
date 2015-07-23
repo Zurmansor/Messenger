@@ -1,9 +1,9 @@
 $(document).ready(function() {
-    addEvents();
+    addChatEvents();
     setTimeout(getNewMessages, 2000);
 });
 
-function addEvents () {
+function addChatEvents () {
     var formAddMessage = $("#form-add-message");
     formAddMessage.submit(onSubmitForm);
 }
