@@ -56,6 +56,11 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li>
+                    <sec:authorize access="isAuthenticated()">
+                        <li><a href="/info"><spring:message code="nav.info"/></a></li>
+                    </sec:authorize>
+                </li>
+                <li>
                     <div class="languages-nav">
                         <a href="?lang=en">en</a>
                         |
