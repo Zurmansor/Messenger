@@ -24,9 +24,6 @@ public class Message {
     @Column(name = "chat_id")
     private Integer chatId;
 
-//    @ManyToOne
-//    private User user;
-
     @ManyToOne()
     @JoinColumn(name = "user_id", nullable = false, insertable = false, updatable = false)
     private User user;
@@ -74,8 +71,4 @@ public class Message {
     public User getUser() {
         return user;
     }
-//
-//    public void setUser(User user) {
-//        this.user = user;
-//    }
 }

@@ -77,7 +77,7 @@ function getNewMessages () {
     });
 }
 
-function formatDate(date, fmt) {
+function formatDate (date, fmt) {
     function pad(value) {
         return (value.toString().length < 2) ? '0' + value : value;
     }

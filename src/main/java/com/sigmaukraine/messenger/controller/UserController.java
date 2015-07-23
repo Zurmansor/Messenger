@@ -1,12 +1,10 @@
 package com.sigmaukraine.messenger.controller;
 
 
-import com.sigmaukraine.messenger.domain.Subject;
 import com.sigmaukraine.messenger.domain.User;
 import com.sigmaukraine.messenger.repository.UserRepository;
 import com.sigmaukraine.messenger.validation.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

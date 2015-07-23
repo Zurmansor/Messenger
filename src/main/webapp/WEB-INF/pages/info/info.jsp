@@ -8,7 +8,7 @@
 
   <div class="jumbotron">
     <h1>Info</h1>
-    <p>https://github.com/Zurmansor/Messenger</p>
+    <p><a href="https://github.com/Zurmansor/Messenger">https://github.com/Zurmansor/Messenger</a></p>
     <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>
   </div>
 
