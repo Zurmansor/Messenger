@@ -1,0 +1,14 @@
+.panel-body-chat {
+    max-height: 430px;
+    overflow-y: scroll;
+}
+
+.panel-body.panel-body-chat .chat-message {
+    padding: 5px 10px;
+    margin: 3px 0;
+    font-size: 12px;
+}
+
+.languages-nav {
+    padding: 15px;
+}
