@@ -9,11 +9,6 @@
     <script language="javascript" type="text/javascript">
         tr.object = "<spring:message code="js.chat"/>"
     </script>
-
-    <ol class="breadcrumb">
-        <li><a href="/subjects"><spring:message code="subject.subject"/>: ${subjectName}</a></li>
-        <li class="active"><a href="#"><spring:message code="title.chats"/></a></li>
-    </ol>
       <H1><spring:message code="title.chats"/></H1>
 
       <sec:authorize access="isAuthenticated()">

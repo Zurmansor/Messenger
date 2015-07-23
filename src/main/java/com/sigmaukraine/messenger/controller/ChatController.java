@@ -1,5 +1,6 @@
 package com.sigmaukraine.messenger.controller;
 
+import com.sigmaukraine.messenger.breadcrumbs.Breadcrumbs;
 import com.sigmaukraine.messenger.domain.Chat;
 import com.sigmaukraine.messenger.repository.ChatRepository;
 import com.sigmaukraine.messenger.repository.SubjectRepository;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -47,18 +49,34 @@ public class ChatController {
         User userDetails = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         com.sigmaukraine.messenger.domain.User user = userRepository.getUserByLogin(userDetails.getUsername());
         String subjectName = subjectRepository.getSubjectById(subjectId).getName();
+
+        List<Breadcrumbs> breadcrumbs = new ArrayList<Breadcrumbs>();
+        breadcrumbs.add(new Breadcrumbs("title.subjects", "/subjects"));
+        breadcrumbs.add(new Breadcrumbs(subjectName, "#", false));
+        breadcrumbs.add(new Breadcrumbs("title.chats", "#"));
+
         model.addAttribute("chats", chats);
         model.addAttribute("subjectId", subjectId);
         model.addAttribute("user", user);
         model.addAttribute("subjectName", subjectName);
+        model.addAttribute("breadcrumbs", breadcrumbs);
         return "chats/list";
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     @PreAuthorize("isAuthenticated()")
-    public String addChat(Model model) {
+    public String addChat(Model model, @PathVariable Integer subjectId) {
         model.addAttribute("chat", new Chat());
 
+        String subjectName = subjectRepository.getSubjectById(subjectId).getName();
+
+        List<Breadcrumbs> breadcrumbs = new ArrayList<Breadcrumbs>();
+        breadcrumbs.add(new Breadcrumbs("title.subjects", "/subjects"));
+        breadcrumbs.add(new Breadcrumbs(subjectName, "/subjects/" + subjectId + "/chats", false));
+        breadcrumbs.add(new Breadcrumbs("title.chats", "/subjects/" + subjectId + "/chats"));
+        breadcrumbs.add(new Breadcrumbs("title.add_chat", "#"));
+
+        model.addAttribute("breadcrumbs", breadcrumbs);
         return "chats/add";
     }
 
@@ -95,6 +113,16 @@ public class ChatController {
 
         Chat chat = chatRepository.getChatById(chatId);
         model.addAttribute("chat", chat);
+
+        String subjectName = subjectRepository.getSubjectById(subjectId).getName();
+
+        List<Breadcrumbs> breadcrumbs = new ArrayList<Breadcrumbs>();
+        breadcrumbs.add(new Breadcrumbs("title.subjects", "/subjects"));
+        breadcrumbs.add(new Breadcrumbs(subjectName, "/subjects/" + subjectId + "/chats", false));
+        breadcrumbs.add(new Breadcrumbs("title.chats", "/subjects/" + subjectId + "/chats"));
+        breadcrumbs.add(new Breadcrumbs("title.edit_chat", "#"));
+
+        model.addAttribute("breadcrumbs", breadcrumbs);
         return "chats/edit";
     }
 
