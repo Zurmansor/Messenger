@@ -1,5 +1,6 @@
 package com.sigmaukraine.messenger.controller;
 
+import com.sigmaukraine.messenger.breadcrumbs.Breadcrumbs;
 import com.sigmaukraine.messenger.domain.Message;
 import com.sigmaukraine.messenger.repository.ChatRepository;
 import com.sigmaukraine.messenger.repository.MessageRepository;
@@ -16,6 +17,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -48,11 +50,19 @@ public class MessageController {
         User userDetails = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String chatName = chatRepository.getChatById(chatId).getName();
         String subjectName = subjectRepository.getSubjectById(subjectId).getName();
+
+        List<Breadcrumbs> breadcrumbs = new ArrayList<Breadcrumbs>();
+        breadcrumbs.add(new Breadcrumbs("title.subjects", "/subjects"));
+        breadcrumbs.add(new Breadcrumbs(subjectName, "/subjects/" + subjectId + "/chats", false));
+        breadcrumbs.add(new Breadcrumbs("title.chats", "/subjects/" + subjectId + "/chats"));
+        breadcrumbs.add(new Breadcrumbs(chatName, "#", false));
+
         model.addAttribute("messages", messages);
         model.addAttribute("message", new Message());
         model.addAttribute("login", userDetails.getUsername());
         model.addAttribute("chatName", chatName);
         model.addAttribute("subjectName", subjectName);
+        model.addAttribute("breadcrumbs", breadcrumbs);
         return "messages/list";
     }
 

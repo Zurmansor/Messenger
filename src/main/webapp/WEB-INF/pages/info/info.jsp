@@ -6,11 +6,23 @@
 
 <t:template>
 
-  <div class="jumbotron">
-    <h1>Info</h1>
-    <p><a href="https://github.com/Zurmansor/Messenger">https://github.com/Zurmansor/Messenger</a></p>
-    <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>
-  </div>
+<div class="jumbotron">
+    <div class="container">
+        <h2>Information about the project</h2>
+        <p>Source: <a href="https://github.com/Zurmansor/Messenger">https://github.com/Zurmansor/Messenger</a></p>
+        <p>Used technologies:</p>
+        <p>
+            <ul>
+                <li>Spring</li>
+                <li>Hibernate</li>
+                <li>Mysql</li>
+                <li>Bootstrap</li>
+                <li>jQuery</li>
+                <li>ajax</li>
+            </ul>
+        </p>
+    </div>
+</div>
 
 
 </t:template>
