@@ -23,7 +23,12 @@ Helix Chat has 2 default users:
 - jQuery
 - ajax
 
-## 4. Author
+## 4. Supported languages.
+
+- English
+- Russian
+
+## 5. Author.
 Anastasiia Shyrokovskaya
 
 anastasya.shir@gmail.com
