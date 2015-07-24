@@ -9,7 +9,7 @@
 <t:template>
     <script language="javascript" type="text/javascript">
         var login = "${login}";
-        var lastMessageTime = "1000-01-01 00:00:00.0";
+        var lastMessageTime = "1970-01-01 00:00:00.0";
         <c:if test="${messages.size()>0}">
             lastMessageTime = "${messages.get(0).created}";
         </c:if>
@@ -22,10 +22,10 @@
             <h3 class="panel-title">${chatName}</h3>
         </div>
         <div id="message-desk" class="panel-body panel-body-chat">
-            <c:forEach items="${messages}" var="message">
+            <c:forEach var="i" begin="0" end="${messages.size()-1}" step="1">
               <div class="alert alert-info chat-message">
-                <strong>${message.user.login}: </strong>
-                <span>${message.text}</span>
+                <strong>${messages[messages.size() - 1 - i].user.login}: </strong>
+                <span>${messages[messages.size() - 1 - i].text}</span>
               </div>
             </c:forEach>
         </div>
