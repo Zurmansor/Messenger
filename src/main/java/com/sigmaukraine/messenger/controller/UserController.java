@@ -1,12 +1,11 @@
 package com.sigmaukraine.messenger.controller;
 
 
-import com.sigmaukraine.messenger.domain.Subject;
+import com.sigmaukraine.messenger.breadcrumbs.Breadcrumbs;
 import com.sigmaukraine.messenger.domain.User;
 import com.sigmaukraine.messenger.repository.UserRepository;
 import com.sigmaukraine.messenger.validation.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -52,8 +52,12 @@ public class UserController {
     @RequestMapping(value = "/users", method = RequestMethod.GET)
     @PreAuthorize("hasRole('admin')")
     public String list(Model model) {
+        List<Breadcrumbs> breadcrumbs = new ArrayList<Breadcrumbs>();
+        breadcrumbs.add(new Breadcrumbs("title.users", "#"));
+
         List<User> users = this.userRepository.listAll();
         model.addAttribute("users", users);
+        model.addAttribute("breadcrumbs", breadcrumbs);
         return "users/list";
     }
 
@@ -71,7 +75,13 @@ public class UserController {
         if (user == null) {
             return "redirect:/users";
         }
+
+        List<Breadcrumbs> breadcrumbs = new ArrayList<Breadcrumbs>();
+        breadcrumbs.add(new Breadcrumbs("title.users", "/users"));
+        breadcrumbs.add(new Breadcrumbs("title.edit_user", "#"));
+
         model.addAttribute("user", user);
+        model.addAttribute("breadcrumbs", breadcrumbs);
         return "users/edit";
     }
 

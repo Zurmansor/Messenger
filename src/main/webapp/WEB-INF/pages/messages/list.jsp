@@ -17,12 +17,6 @@
     </script>
     <script language="javascript" type="text/javascript" src="/resources/js/chat.js"></script>
 
-    <ol class="breadcrumb">
-        <li><a href="/subjects"><spring:message code="subject.subject"/>: ${subjectName}</a></li>
-        <li><a href="/subjects/${subjectId}/chats"><spring:message code="chat.chat"/>: ${chatName}</a></li>
-        <li class="active"><a href="#"><spring:message code="message.message"/></a></li>
-    </ol>
-
     <div class="panel panel-primary">
         <div class="panel-heading">
             <h3 class="panel-title">${chatName}</h3>

@@ -1,5 +1,6 @@
 package com.sigmaukraine.messenger.controller;
 
+import com.sigmaukraine.messenger.breadcrumbs.Breadcrumbs;
 import com.sigmaukraine.messenger.domain.Subject;
 import com.sigmaukraine.messenger.repository.SubjectRepository;
 import com.sigmaukraine.messenger.repository.UserRepository;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -40,8 +42,8 @@ public class SubjectController {
     @PreAuthorize("isAuthenticated()")
     public String list(Model model) {
         List<Subject> subjects = this.subjectRepository.listAll();
-        HashMap<String, String> breadcrumbs = new HashMap<String, String>();
-        breadcrumbs.put("title.subjects", "#");
+        List<Breadcrumbs> breadcrumbs = new ArrayList<Breadcrumbs>();
+        breadcrumbs.add(new Breadcrumbs("title.subjects", "#"));
 
         model.addAttribute("subjects", subjects);
         model.addAttribute("breadcrumbs", breadcrumbs);
@@ -51,9 +53,9 @@ public class SubjectController {
     @RequestMapping(value = "/subjects/add", method = RequestMethod.GET)
     @PreAuthorize("hasRole('admin')")
     public String addSubject(Model model) {
-        HashMap<String, String> breadcrumbs = new HashMap<String, String>();
-        breadcrumbs.put("title.add_subject", "#");
-        breadcrumbs.put("title.subjects", "/subjects");
+        List<Breadcrumbs> breadcrumbs = new ArrayList<Breadcrumbs>();
+        breadcrumbs.add(new Breadcrumbs("title.subjects", "/subjects"));
+        breadcrumbs.add(new Breadcrumbs("title.add_subject", "#"));
 
         model.addAttribute("breadcrumbs", breadcrumbs);
         model.addAttribute("subject", new Subject());
@@ -97,9 +99,9 @@ public class SubjectController {
             return "redirect:/subjects";
         }
 
-        HashMap<String, String> breadcrumbs = new HashMap<String, String>();
-        breadcrumbs.put("title.edit_subject", "#");
-        breadcrumbs.put("title.subjects", "/subjects");
+        List<Breadcrumbs> breadcrumbs = new ArrayList<Breadcrumbs>();
+        breadcrumbs.add(new Breadcrumbs("title.subjects", "/subjects"));
+        breadcrumbs.add(new Breadcrumbs("title.edit_subject", "#"));
 
         model.addAttribute("subject", subject);
         model.addAttribute("breadcrumbs", breadcrumbs);

@@ -30,7 +30,7 @@ DROP TABLE IF EXISTS `chats`;
 CREATE TABLE `chats` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL,
-  `subject_id` int(11) DEFAULT NULL,
+  `subject_id` int(11) NOT NULL,
   `description` varchar(500) DEFAULT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `created_by` int(11) NOT NULL,

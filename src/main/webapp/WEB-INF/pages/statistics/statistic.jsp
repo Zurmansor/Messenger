@@ -7,6 +7,22 @@
 <t:template>
 
   <H1>Statistic</H1>
+  <p>
+    <ul>
+        <li>
+            Number of users: ${userCount}
+        </li>
+        <li>
+            Number of subjects: ${subjectCount}
+        </li>
+        <li>
+            Number of chats: ${chatstCount}
+        </li>
+        <li>
+            Number of messages: ${messagesCount}
+        </li>
+    </ul>
+  </p>
 
 
 </t:template>

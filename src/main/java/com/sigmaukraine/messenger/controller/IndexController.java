@@ -14,7 +14,7 @@ public class IndexController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String registration(Model model) {
-        return "index";
+        return "redirect:/subjects";
     }
 
 }

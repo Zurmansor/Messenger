@@ -91,7 +91,18 @@
     <c:if test="${not empty breadcrumbs}">
         <ol class="breadcrumb">
             <c:forEach items="${breadcrumbs}" var="breadcrumb">
-              <li><a href="${breadcrumb.value}"><spring:message code="${breadcrumb.key}"/></a></li>
+              <li>
+                  <a href="${breadcrumb.getLink()}">
+                      <c:choose>
+                          <c:when test="${breadcrumb.isTranslatable()}">
+                              <spring:message code="${breadcrumb.getTitle()}"/>
+                          </c:when>
+                          <c:when test="${!breadcrumb.isTranslatable()}">
+                             ${breadcrumb.getTitle()}
+                          </c:when>
+                      </c:choose>
+                  </a>
+              </li>
             </c:forEach>
         </ol>
     </c:if>
