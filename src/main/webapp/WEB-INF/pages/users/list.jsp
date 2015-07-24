@@ -6,6 +6,9 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <t:template>
+  <script language="javascript" type="text/javascript">
+    tr.object = "<spring:message code="js.user"/>"
+  </script>
 
   <H1><spring:message code="title.users"/></H1>
   <div class="list-subject-container">
@@ -24,18 +27,19 @@
         <div class="panel-heading clearfix" role="tab" id="user-${user.id}">
           <h4 class="panel-title">
             <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#description-${user.id}" aria-expanded="false" aria-controls="description-${user.id}">
-                <%--              <a href="/subjects/${user.id}/chats"> ${subject.name} </a>--%>
-                ${user.login}
-              <sec:authorize access="hasRole('admin')">
-                <a href="/users/edit/${user.id}" class="btn btn-info btn-xs pull-right"><spring:message code="options.edit"/></a>
-                <a href="/users/remove/${user.id}" class="btn btn-danger btn-xs pull-right"><spring:message code="options.delete"/></a>
-              </sec:authorize>
+                <span class="object-name">${user.login}</span>
+                <sec:authorize access="hasRole('admin')">
+                    <div class="pull-right">
+                      <a href="/users/edit/${user.id}" class="btn btn-default btn-xs"><spring:message code="options.edit"/></a>
+                      <a href="/users/remove/${user.id}" class="btn btn-default btn-xs delete-btn"><spring:message code="options.delete"/></a>
+                    </div>
+                </sec:authorize>
             </a>
           </h4>
         </div>
         <div id="description-${user.id}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="user-${user.id}">
           <div class="panel-body">
-              ${user.created}
+              ${user.comment}
           </div>
         </div>
       </div>
@@ -44,5 +48,3 @@
 
 
 </t:template>
-
-<%--<p class="bg-success">--%>
