@@ -28,7 +28,4 @@ Helix Chat has 2 default users:
 - English
 - Russian
 
-## 5. Author.
-Anastasiia Shyrokovskaya
-
 
