@@ -31,4 +31,4 @@ Helix Chat has 2 default users:
 ## 5. Author.
 Anastasiia Shyrokovskaya
 
-anastasya.shir@gmail.com
+
