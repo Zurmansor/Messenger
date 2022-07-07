@@ -8,7 +8,7 @@
     <name>messenger</name>
 
     <properties>
-        <spring.version>3.2.0.RELEASE</spring.version>
+        <spring.version>3.2.5.RELEASE</spring.version>
         <com.jackson.core-version>2.6.0-rc2</com.jackson.core-version>
     </properties>
 
